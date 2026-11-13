@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>管理画面｜英会話ラボ</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23141824'/%3E%3Cpath d='M16 20h32a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H30l-9 7v-7h-5a6 6 0 0 1-6-6V26a6 6 0 0 1 6-6z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Zen+Maru+Gothic:wght@700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: login card → toolbar (issue codes) + summary chips + searchable code table; tables scroll sideways on phones */
+:root{
+  --bg:#f4f5f8; --surface:#ffffff; --surface-2:#eef0f5; --fg:#11152e; --muted:#5a6078;
+  --line:#dfe2ea; --accent:#c2410c; --accent-ink:#ffffff; --accent-soft:#ffece3;
+  --brand:#ff5a1f; --brand-ink:#11152e; --ink:#11152e; --ink-2:#1b2142; --ink-fg:#f3f4f8; --ink-muted:#a8aec6;
+  --good:#1f8a4c; --warn:#a86400; --bad:#c2332b; --rec:#e0352b;
+  --shadow:0 1px 2px rgba(17,21,46,.06),0 10px 30px rgba(17,21,46,.08);
+  --f-body:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",system-ui,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --f-round:"Zen Maru Gothic","Zen Kaku Gothic New",system-ui,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0b0e1a; --surface:#141a2c; --surface-2:#1d2438; --fg:#eef0f7; --muted:#9aa1b9;
+  --line:#283049; --accent:#ff8a5c; --accent-ink:#1a0d06; --accent-soft:#3a1f14;
+  --brand:#ff6a32; --brand-ink:#11152e; --ink:#070913; --ink-2:#121833; --ink-fg:#eef0f7; --ink-muted:#9aa1b9;
+  --good:#4cc283; --warn:#e3a33d; --bad:#ff7a70; --rec:#ff5a4e;
+  --shadow:0 1px 2px rgba(0,0,0,.35),0 10px 30px rgba(0,0,0,.3); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0b0e1a; --surface:#141a2c; --surface-2:#1d2438; --fg:#eef0f7; --muted:#9aa1b9;
+  --line:#283049; --accent:#ff8a5c; --accent-ink:#1a0d06; --accent-soft:#3a1f14;
+  --brand:#ff6a32; --brand-ink:#11152e; --ink:#070913; --ink-2:#121833; --ink-fg:#eef0f7; --ink-muted:#9aa1b9;
+  --good:#4cc283; --warn:#e3a33d; --bad:#ff7a70; --rec:#ff5a4e;
+  --shadow:0 1px 2px rgba(0,0,0,.35),0 10px 30px rgba(0,0,0,.3); color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--fg);font:14.5px/1.6 var(--f-body)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:20px 60px;display:flex;flex-direction:column;gap:16px}
+header{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header h1{font-size:20px;margin:0 auto 0 0}
+header h1 small{font-size:12px;color:var(--muted);font-weight:500;margin-left:8px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.card h2{font-size:15px;margin:0 0 12px}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;cursor:pointer;font-weight:500;font-size:13.5px;white-space:nowrap}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{color:var(--accent-ink);filter:brightness(1.08)}
+.btn.sm{padding:3px 10px;font-size:12.5px}
+.btn.danger{color:var(--bad)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;align-items:end}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);min-width:0}
+label.f input,label.f select,label.f textarea{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:7px 10px;color:var(--fg);min-width:0}
+.login{max-width:420px;margin:12vh auto 0;display:flex;flex-direction:column;gap:12px}
+.msg{font-size:13px;min-height:1.4em}
+.msg.err{color:var(--bad)} .msg.ok{color:var(--good)}
+.stats{display:flex;gap:10px;flex-wrap:wrap}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 14px;min-width:120px}
+.stat b{display:block;font:600 22px/1.2 var(--f-mono);font-variant-numeric:tabular-nums}
+.stat span{font-size:12px;color:var(--muted)}
+.made{background:var(--accent-soft);border-radius:12px;padding:12px 14px;margin-top:12px}
+.made textarea{width:100%;min-height:120px;border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--surface);font:13px/1.6 var(--f-mono);resize:vertical}
+.tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.tools input{flex:1;min-width:180px;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:6px 14px}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:900px;font-size:13px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font-size:11.5px;color:var(--muted);background:var(--surface-2);font-weight:700;position:sticky;top:0}
+tr:last-child td{border-bottom:none}
+td.code{font:600 13px var(--f-mono);white-space:nowrap}
+td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.pill{display:inline-block;font-size:11.5px;font-weight:700;padding:1px 9px;border-radius:999px;white-space:nowrap}
+.pill.unused{background:var(--surface-2);color:var(--muted)}
+.pill.active{background:color-mix(in srgb,var(--good) 15%,transparent);color:var(--good)}
+.pill.expired{background:color-mix(in srgb,var(--warn) 15%,transparent);color:var(--warn)}
+.pill.revoked{background:color-mix(in srgb,var(--bad) 13%,transparent);color:var(--bad)}
+.acts{display:flex;gap:4px;flex-wrap:nowrap}
+.confirm{display:inline-flex;gap:4px;align-items:center;font-size:12px;color:var(--bad)}
+.empty{color:var(--muted);text-align:center;padding:24px}
+.btn.primary{background:var(--ink);border-color:var(--ink);color:var(--ink-fg)}
+.btn.primary:hover{color:var(--ink-fg)}
+header h1,.login h1{font-family:var(--f-round)}
+.made{background:var(--accent-soft)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <section class="login card" id="loginBox">
+    <h1 style="font-size:20px;margin:0">英会話ラボ 管理画面</h1>
+    <p style="margin:0;color:var(--muted);font-size:13px">利用コードの発行・停止・延長を行います。管理パスワード（環境変数 ADMIN_PASSWORD）を入れてください。</p>
+    <form id="loginForm" style="display:flex;flex-direction:column;gap:10px">
+      <label class="f">管理パスワード<input id="pw" type="password" autocomplete="current-password" required></label>
+      <button class="btn primary" type="submit">ログイン</button>
+    </form>
+    <p class="msg" id="loginMsg"></p>
+  </section>
+
+  <div id="main" hidden style="display:flex;flex-direction:column;gap:16px">
+    <header>
+      <h1>利用コードの管理<small>英会話ラボ</small></h1>
+      <a class="btn" href="/app/" target="_blank" rel="noopener" style="text-decoration:none">アプリを開く</a>
+      <button class="btn" id="logout" type="button">ログアウト</button>
+    </header>
+
+    <div class="stats" id="stats"></div>
+
+    <section class="card">
+      <h2>コードを発行する</h2>
+      <form id="createForm">
+        <div class="grid">
+          <label class="f">プラン
+            <select id="preset">
+              <option value="trial">7日体験（1日 会話5回）</option>
+              <option value="p30" selected>30日パス（1日 会話10回）</option>
+              <option value="p90">90日パス（1日 会話10回）</option>
+              <option value="school">団体・教室用（期限なし）</option>
+              <option value="custom">自分で決める</option>
+            </select></label>
+          <label class="f">発行する数<input id="count" type="number" min="1" max="200" value="1"></label>
+          <label class="f" style="grid-column:span 2">購入者・団体名（メモ）<input id="label" type="text" maxlength="80" placeholder="例：山田さん（note 10/14購入）"></label>
+          <label class="f" style="grid-column:span 2">ひろば（事業所名）— 同じ名前のコードどうしが、同じひろばで会えます<input id="group" type="text" maxlength="40" placeholder="例：ワンゲーム八千代台"></label>
+        </div>
+        <div class="grid" style="margin-top:10px">
+          <label class="f">有効日数（0＝期限なし）<input id="days" type="number" min="0" max="3650" value="30"></label>
+          <label class="f">1日の会話の回数<input id="dailySessions" type="number" min="1" max="500" value="10"></label>
+          <label class="f">1日の採点の回数<input id="dailyCalls" type="number" min="1" max="5000" value="150"></label>
+          <label class="f">プラン名（利用者に表示）<input id="planName" type="text" maxlength="40" value="30日パス"></label>
+          <button class="btn primary" type="submit">発行する</button>
+        </div>
+        <p class="msg" id="createMsg"></p>
+      </form>
+      <div class="made" id="made" hidden>
+        <b style="font-size:13.5px">発行したコード（購入者への案内文つき）</b>
+        <textarea id="madeText" readonly></textarea>
+        <div style="display:flex;gap:8px;margin-top:8px"><button class="btn sm" id="copyMade" type="button">案内文をコピー</button><span class="msg ok" id="copyMsg"></span></div>
+      </div>
+      <p class="msg" style="color:var(--muted);margin:10px 0 0">有効日数は、購入者が<b>最初に使った日</b>から数えます。会話1回＝相手とつないでから止めるまで。採点は発言1回ごとに1回使います。</p>
+    </section>
+
+    <section class="card">
+      <div class="tools">
+        <input id="q" type="search" placeholder="コード・名前・メモで探す">
+        <select id="filter" class="btn" style="padding-right:8px">
+          <option value="all">すべて</option><option value="unused">未使用</option><option value="active">利用中</option><option value="expired">期限切れ</option><option value="revoked">停止中</option>
+        </select>
+        <button class="btn" id="reload" type="button">更新</button>
+        <button class="btn" id="csv" type="button">CSVで保存</button>
+      </div>
+      <div class="tw"><table>
+        <thead><tr><th>コード</th><th>名前・メモ</th><th>状態</th><th>プラン</th><th>有効期限</th><th>今日の利用</th><th>発行日</th><th>操作</th></tr></thead>
+        <tbody id="rows"><tr><td colspan="8" class="empty">読み込み中…</td></tr></tbody>
+      </table></div>
+    </section>
+  </div>
+</div>
+
+<script>
+(() => {
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let PW = ''; try{ PW = sessionStorage.getItem('eladmin') || ''; }catch{}
+let all = [], nowT = Date.now();
+const APP_URL = location.origin + '/app/';
+
+async function call(action, extra={}){
+  const res = await fetch('/api/admin', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({password: PW, action, ...extra})});
+  const d = await res.json().catch(() => ({}));
+  if(!res.ok) throw new Error(d.error || `エラー（${res.status}）`);
+  return d;
+}
+function msg(el, text, kind=''){ el.textContent = text; el.className = 'msg ' + kind; }
+
+/* ---- ログイン ---- */
+$('loginForm').onsubmit = async e => {
+  e.preventDefault();
+  PW = $('pw').value;
+  try{ await call('login'); try{ sessionStorage.setItem('eladmin', PW); }catch{} showMain(); }
+  catch(err){ msg($('loginMsg'), err.message, 'err'); }
+};
+$('logout').onclick = () => { try{ sessionStorage.removeItem('eladmin'); }catch{} PW=''; location.reload(); };
+function showMain(){ $('loginBox').hidden = true; $('main').hidden = false; load(); }
+
+/* ---- 発行 ---- */
+const PRESETS = {
+  trial:{days:7, dailySessions:5, dailyCalls:80, planName:'7日体験'},
+  p30:{days:30, dailySessions:10, dailyCalls:150, planName:'30日パス'},
+  p90:{days:90, dailySessions:10, dailyCalls:150, planName:'90日パス'},
+  school:{days:0, dailySessions:10, dailyCalls:150, planName:'団体ライセンス'},
+};
+$('preset').onchange = () => { const p = PRESETS[$('preset').value]; if(!p) return; for(const k in p) $(k).value = p[k]; };
+$('createForm').onsubmit = async e => {
+  e.preventDefault();
+  msg($('createMsg'), '発行しています…');
+  try{
+    const d = await call('create', {count:+$('count').value, label:$('label').value, group:$('group').value, planName:$('planName').value, days:+$('days').value, dailySessions:+$('dailySessions').value, dailyCalls:+$('dailyCalls').value});
+    msg($('createMsg'), `${d.created.length}件のコードを発行しました`, 'ok');
+    const p = d.created[0];
+    const term = p.days ? `最初に使った日から${p.days}日間` : '期限なし';
+    $('madeText').value = d.created.map(c =>
+`英会話ラボをお申し込みいただき、ありがとうございます。
+▼このリンクを開くだけで始められます
+${APP_URL}#c=${c.code}
+▼利用コード　${c.code}（リンクが開けないときは、アプリの「設定」に入れてください）
+▼プラン　${p.planName || ''}（${term}）
+使い方は ${location.origin}/guide.html にあります。`).join('\n\n――――――――――\n\n');
+    $('made').hidden = false; $('label').value = '';
+    load();
+  }catch(err){ msg($('createMsg'), err.message, 'err'); }
+};
+$('copyMade').onclick = async () => {
+  try{ await navigator.clipboard.writeText($('madeText').value); msg($('copyMsg'), 'コピーしました', 'ok'); }
+  catch{ $('madeText').select(); msg($('copyMsg'), '選択しました。Ctrl+C でコピーしてください', ''); }
+};
+
+/* ---- 一覧 ---- */
+const fmt = t => t ? new Date(t).toLocaleDateString('ja-JP', {year:'numeric', month:'2-digit', day:'2-digit'}) : '—';
+function stateOf(c){
+  if(c.status === 'revoked') return ['revoked','停止中'];
+  if(!c.activatedAt) return ['unused','未使用'];
+  if(c.expiresAt && nowT > c.expiresAt) return ['expired','期限切れ'];
+  return ['active','利用中'];
+}
+async function load(){
+  try{ const d = await call('list'); all = d.codes; nowT = d.now; render(); }
+  catch(err){ $('rows').innerHTML = `<tr><td colspan="8" class="empty">${esc(err.message)}</td></tr>`; if(/パスワード/.test(err.message)){ $('logout').click(); } }
+}
+function render(){
+  const q = $('q').value.trim().toLowerCase(), f = $('filter').value;
+  const counts = {unused:0, active:0, expired:0, revoked:0};
+  all.forEach(c => counts[stateOf(c)[0]]++);
+  const usedToday = all.filter(c => c.today.sessions || c.today.calls).length;
+  $('stats').innerHTML = [['発行済み', all.length], ['利用中', counts.active], ['未使用', counts.unused], ['期限切れ', counts.expired], ['停止中', counts.revoked], ['今日使った人', usedToday]]
+    .map(([l,n]) => `<div class="stat"><b>${n}</b><span>${l}</span></div>`).join('');
+  const rows = all.filter(c => (f === 'all' || stateOf(c)[0] === f) && (!q || [c.code, c.label, c.note, c.planName, c.group].join(' ').toLowerCase().includes(q)));
+  if(!rows.length){ $('rows').innerHTML = `<tr><td colspan="8" class="empty">${all.length ? '条件に合うコードがありません' : 'まだコードがありません。上の「発行する」から作れます'}</td></tr>`; return; }
+  $('rows').innerHTML = rows.map(c => {
+    const [st, stl] = stateOf(c);
+    const exp = c.expiresAt ? fmt(c.expiresAt) : (c.days ? `初回利用から${c.days}日` : '期限なし');
+    return `<tr data-code="${c.code}">
+      <td class="code">${c.code}</td>
+      <td>${esc(c.label) || '<span style="color:var(--muted)">—</span>'}${c.note ? `<br><small style="color:var(--muted)">${esc(c.note)}</small>` : ''}${c.group ? `<br><small style="color:var(--muted)">ひろば：${esc(c.group)}</small>` : ''}</td>
+      <td><span class="pill ${st}">${stl}</span></td>
+      <td>${esc(c.planName || '')}</td>
+      <td class="num">${exp}</td>
+      <td class="num">会話 ${c.today.sessions}/${c.today.sessionLimit}・採点 ${c.today.calls}/${c.today.callLimit}</td>
+      <td class="num">${fmt(c.createdAt)}</td>
+      <td><div class="acts">
+        <button class="btn sm" data-a="copy" type="button">コピー</button>
+        <button class="btn sm" data-a="link" type="button">招待リンク</button>
+        <button class="btn sm" data-a="extend" type="button">+30日</button>
+        <button class="btn sm" data-a="group" type="button">ひろば</button>
+        ${c.status === 'revoked' ? '<button class="btn sm" data-a="restore" type="button">再開</button>' : '<button class="btn sm" data-a="revoke" type="button">停止</button>'}
+        <button class="btn sm danger" data-a="delete" type="button">削除</button>
+      </div></td></tr>`;
+  }).join('');
+}
+$('q').oninput = render; $('filter').onchange = render; $('reload').onclick = load;
+$('rows').addEventListener('click', async e => {
+  const b = e.target.closest('button[data-a]'); if(!b) return;
+  const code = b.closest('tr').dataset.code, a = b.dataset.a;
+  if(a === 'link'){ const u = `${APP_URL}#c=${code}`; try{ await navigator.clipboard.writeText(u); b.textContent = 'コピー済'; }catch{ prompt('このリンクをコピーしてください', u); } setTimeout(() => b.textContent = '招待リンク', 1500); return; }
+  if(a === 'copy'){ try{ await navigator.clipboard.writeText(code); b.textContent = '済'; }catch{ b.textContent = code; } setTimeout(() => b.textContent = 'コピー', 1500); return; }
+  if(a === 'group'){
+    const cur = (all.find(c => c.code === code) || {}).group || '';
+    const g = prompt('このコードの「ひろば（事業所名）」を入れてください。同じ名前のコードどうしが会えます。空にすると、ひろばを使えなくなります。', cur);
+    if(g === null) return;
+    b.disabled = true;
+    try{ await call('update', {code, group: g}); await load(); }catch(err){ alertRow(b, err.message); }
+    return;
+  }
+  if(a === 'delete' && !b.dataset.sure){
+    b.dataset.sure = '1'; b.textContent = '本当に削除'; setTimeout(() => { delete b.dataset.sure; b.textContent = '削除'; }, 3000); return;
+  }
+  b.disabled = true;
+  try{ await call(a, {code, days:30}); await load(); }catch(err){ alertRow(b, err.message); }
+});
+function alertRow(b, m){ b.disabled = false; b.textContent = '失敗'; b.title = m; }
+$('csv').onclick = () => {
+  const head = ['code','name','note','status','plan','days','activated','expires','created','today_sessions','today_calls'];
+  const lines = [head.join(',')].concat(all.map(c => [c.code, c.label, c.note, stateOf(c)[1], c.planName, c.days, fmt(c.activatedAt), fmt(c.expiresAt), fmt(c.createdAt), c.today.sessions, c.today.calls]
+    .map(v => `"${String(v ?? '').replace(/"/g,'""')}"`).join(',')));
+  const blob = new Blob(['﻿' + lines.join('\r\n')], {type:'text/csv'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `eikaiwa-codes-${new Date().toISOString().slice(0,10)}.csv`; a.click();
+};
+
+if(PW){ call('login').then(showMain).catch(() => { PW=''; }); }
+})();
+</script>
+</body>
+</html>

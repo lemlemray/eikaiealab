@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>使い方ガイド｜英会話ラボ</title>
+<meta name="description" content="英会話ラボの使い方。話し相手の選び方、会話・おさらい・言い直し練習の流れ、点数の見方、困ったときの対処。">
+<meta name="theme-color" content="#11152e">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23ff5a1f'/%3E%3Cpath d='M16 20h32a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H30l-9 7v-7h-5a6 6 0 0 1-6-6V26a6 6 0 0 1 6-6z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Zen+Maru+Gothic:wght@700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: single reading column (~68ch) with a sticky table of contents on wide screens */
+:root{
+  --bg:#f4f5f8; --surface:#ffffff; --surface-2:#eef0f5; --fg:#11152e; --muted:#5a6078;
+  --line:#dfe2ea; --accent:#c2410c; --accent-ink:#ffffff; --accent-soft:#ffece3;
+  --brand:#ff5a1f; --brand-ink:#11152e; --ink:#11152e; --ink-2:#1b2142; --ink-fg:#f3f4f8; --ink-muted:#a8aec6;
+  --good:#1f8a4c; --warn:#a86400; --bad:#c2332b; --rec:#e0352b;
+  --shadow:0 1px 2px rgba(17,21,46,.06),0 10px 30px rgba(17,21,46,.08);
+  --f-display:"Bricolage Grotesque","Zen Kaku Gothic New",system-ui,sans-serif;
+  --f-body:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --f-round:"Zen Maru Gothic","Zen Kaku Gothic New",system-ui,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0b0e1a; --surface:#141a2c; --surface-2:#1d2438; --fg:#eef0f7; --muted:#9aa1b9;
+  --line:#283049; --accent:#ff8a5c; --accent-ink:#1a0d06; --accent-soft:#3a1f14;
+  --brand:#ff6a32; --brand-ink:#11152e; --ink:#070913; --ink-2:#121833; --ink-fg:#eef0f7; --ink-muted:#9aa1b9;
+  --good:#4cc283; --warn:#e3a33d; --bad:#ff7a70; --rec:#ff5a4e;
+  --shadow:0 1px 2px rgba(0,0,0,.35),0 10px 30px rgba(0,0,0,.3); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0b0e1a; --surface:#141a2c; --surface-2:#1d2438; --fg:#eef0f7; --muted:#9aa1b9;
+  --line:#283049; --accent:#ff8a5c; --accent-ink:#1a0d06; --accent-soft:#3a1f14;
+  --brand:#ff6a32; --brand-ink:#11152e; --ink:#070913; --ink-2:#121833; --ink-fg:#eef0f7; --ink-muted:#9aa1b9;
+  --good:#4cc283; --warn:#e3a33d; --bad:#ff7a70; --rec:#ff5a4e;
+  --shadow:0 1px 2px rgba(0,0,0,.35),0 10px 30px rgba(0,0,0,.3); color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:17.5px/1.85 var(--f-body)}
+a{color:var(--accent)}
+.top{border-bottom:1px solid var(--line);background:var(--surface)}
+.top .in{max-width:1080px;margin:0 auto;padding-inline:16px;padding-block:12px;display:flex;align-items:center;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;margin-right:auto}
+.brand svg{width:32px;height:32px}
+.brand b{font:800 19px/1 var(--f-display)}
+.cta{background:var(--accent);color:var(--accent-ink);text-decoration:none;border-radius:999px;padding:8px 16px;font-weight:700;font-size:15.5px}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:16px;padding-block:32px 80px;display:grid;grid-template-columns:220px minmax(0,1fr);gap:40px}
+@media (max-width:820px){.wrap{grid-template-columns:minmax(0,1fr)}.toc{display:none}}
+.toc{position:sticky;top:20px;align-self:start;font-size:15px}
+.toc p{font:600 12.5px var(--f-mono);letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin:0 0 8px}
+.toc a{display:block;color:var(--muted);text-decoration:none;padding:4px 0}
+.toc a:hover{color:var(--accent)}
+main{max-width:68ch;min-width:0}
+h1{font:800 clamp(28px,5vw,40px)/1.15 var(--f-display);margin:0 0 10px;text-wrap:balance}
+.lead{color:var(--muted);font-size:18px;margin:0 0 28px}
+h2{font:800 22px/1.3 var(--f-display);margin:44px 0 13.5px;padding-top:8px;text-wrap:balance}
+h3{font-size:18px;margin:22px 0 6.5px}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}
+@media (max-width:640px){.steps{grid-template-columns:minmax(0,1fr)}}
+.steps div{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px}
+.steps em{font:600 12.5px var(--f-mono);color:var(--accent);font-style:normal;display:block}
+.steps b{display:block;font-size:17px}
+.steps span{font-size:15px;color:var(--muted)}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:15.5px;min-width:520px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:13.5px;color:var(--muted);font-weight:700;background:var(--surface-2)}
+tr:last-child td{border-bottom:none}
+td b{white-space:nowrap}
+kbd{font:600 13.5px var(--f-mono);border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 6px;background:var(--surface)}
+.note{background:var(--accent-soft);border-radius:14px;padding:12px 16px;font-size:15.5px;margin:15.5px 0}
+details{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 16px;margin:8px 0}
+details summary{cursor:pointer;font-weight:700}
+details p{margin:9px 0 2px;font-size:16px}
+ol,ul{padding-left:22px}
+footer{margin-top:56px;padding-top:16px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+.top{background:var(--ink);border-bottom:none}
+.brand b{color:var(--ink-fg);font-family:var(--f-round);font-weight:900}
+.cta{background:var(--brand);color:var(--brand-ink)}
+h1,h2{font-family:var(--f-round)}
+.steps em{color:var(--accent)}
+.note{background:var(--accent-soft)}
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+  <a class="brand" href="/"><svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="18" fill="var(--brand)"/><path d="M16 20h32a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H30l-9 7v-7h-5a6 6 0 0 1-6-6V26a6 6 0 0 1 6-6z" fill="var(--brand-ink)"/><path d="M23 32v0M29 28v8M35 25v14M41 29v6" stroke="var(--brand)" stroke-width="3.4" stroke-linecap="round"/></svg><b>英会話ラボ</b></a>
+  <a class="cta" href="/app/">アプリを開く</a>
+</div></header>
+
+<div class="wrap">
+  <nav class="toc" aria-label="目次">
+    <p>目次</p>
+    <a href="#start">はじめに</a><a href="#need">準備するもの</a><a href="#lesson">レッスン</a><a href="#voice">小さな声・にぎやかな場所</a><a href="#care">つっかえても大丈夫</a><a href="#chal">チャレンジ</a><a href="#shop">きせかえ</a><a href="#save">保存と続きから</a>
+    <a href="#partners">話し相手</a><a href="#flow">会話の流れ</a><a href="#read">音読と復習</a><a href="#score">点数の見方</a><a href="#keys">キー操作</a><a href="#settings">設定</a>
+    <a href="#faq">困ったとき</a><a href="#data">音声データについて</a>
+  </nav>
+
+  <main>
+    <h1>英会話ラボ 使い方ガイド</h1>
+    <p class="lead">英語をまったく知らなくても、<b>Hello</b> から声だけで始められる英会話アプリです。つっかえても、長く黙っても、ささやくような小さな声でも大丈夫。あなたが話すまで、急かさずに待ちます。</p>
+
+    <h2 id="start">はじめに（3ステップ）</h2>
+    <div class="steps">
+      <div><em>STEP 1</em><b>利用コードを入れる</b><span>最初に開くと設定が出ます。受け取った利用コード（EL-から始まる12文字）を入れて「確認」。</span></div>
+      <div><em>STEP 2</em><b>声を登録する（30秒）</b><span>「レッスン」タブの「声を登録する」を押し、ふだん話す声で「ハロー」と3回。小さな声でも聞き取りやすくなります。</span></div>
+      <div><em>STEP 3</em><b>スタート地点を決めて、マイクのボタン</b><span>まったくはじめてなら LEVEL 1 の Hello から。英語を少し知っていれば、途中のレベルからも始められます。</span></div>
+    </div>
+
+    <h2 id="need">準備するもの</h2>
+    <ul>
+      <li><b>ブラウザ</b>：パソコンは Chrome か Edge の最新版。スマホは Chrome（Android）か Safari（iPhone）。</li>
+      <li><b>マイク</b>：スマホやパソコンのマイクで使えます。初めて使うときにマイクの許可を聞かれるので「許可」を選んでください。</li>
+      <li><b>マイクつきイヤホン（いちばんおすすめ）</b>：マイクが口の近くにあるので、小さな声でもはっきり入り、まわりの声や音が入りにくくなります。相手の声をマイクが拾ってしまうこともなくなります。</li>
+      <li><b>日本語の読み上げ</b>：レッスンでは日本語で説明を読み上げます。スマホやパソコンの「読み上げ音声」に日本語が入っていないときは、説明は画面に表示だけされます。</li>
+    </ul>
+
+    <h2 id="lesson">レッスン（ゼロから）</h2>
+    <p>「レッスン」タブは、<b>6つのレベル・23のステージ</b>で、あいさつから文のしくみ（文法）まで、ひとつずつ積み上げていきます。各ステージのはじめに「きょうのポイント」として、文のしくみを日本語で説明します（例：「英語は、わたしは・好き・コーヒー の順番」）。練習する文には、単語ごとの意味も小さく表示されます。</p>
+    <div class="tw"><table>
+      <thead><tr><th>レベル</th><th>ステージ</th><th>目安</th></tr></thead>
+      <tbody>
+        <tr><td>1 はじめの一歩</td><td>あいさつ／へんじ／こまったとき（Just a moment など）／かず</td><td>英語はまったくはじめて</td></tr>
+        <tr><td>2 じぶんのこと</td><td>わたしは〜です（I'm）／あなた・かれ・かのじょ（You are, He is）／これ・あれ（This is）／〜じゃない・〜ですか？</td><td>あいさつくらいはわかる</td></tr>
+        <tr><td>3 うごきのことば</td><td>好き・持っている（I like）／〜しません（I don't）／〜しますか？（Do you）／かれ・かのじょのうごき（likes）</td><td>中学1年のはじめくらい</td></tr>
+        <tr><td>4 たずねることば</td><td>なに？（What）／どこ・いつ・だれ／どう・どのくらい（How）</td><td>中学1年くらい</td></tr>
+        <tr><td>5 いま・きのう・あした</td><td>いま〜している（-ing）／きのう〜した（went, ate）／〜した？・〜しなかった（Did you）／これから〜する（going to, will）</td><td>中学2年くらい</td></tr>
+        <tr><td>6 つかえる表現</td><td>できる（can）／ていねいなおねがい（I'd like, Could you）／つなぐことば（and, but, because）／ミニ会話1・2</td><td>中学2〜3年くらい</td></tr>
+      </tbody>
+    </table></div>
+    <h3>途中のレベルから始める</h3>
+    <p>はじめて開いたときに「どこから始めますか？」が出ます。英語をある程度知っている人は、レベルを選ぶか、<b>かんたんチェック</b>（例文の意味がわかるかを5問たずねて、おすすめのレベルを出します）で決められます。あとからでも「スタート地点をえらぶ」でいつでも変えられ、とばしたレベルも、上のレベルのボタンからいつでも練習できます。</p>
+    <p>1つのことばは、次の順に進みます（ステージのはじめには、文のしくみの説明が入ります）。</p>
+    <ol>
+      <li><b>聞く</b>：日本語の意味のあと、英語のお手本がゆっくり流れます。画面にはカタカナの読み方も出ます。</li>
+      <li><b>いっしょに言う</b>：もう一度お手本が流れるので、声を重ねて言います。ひとりで言うより、ずっと言いやすくなります（設定で外せます）。</li>
+      <li><b>ひとりで言う</b>：準備ができたら、どうぞ。話し始めるまで、いつまでも待ちます。</li>
+    </ol>
+    <p>言えたら、効果音と紙ふぶきで、思いきりほめます（設定の「ほめ方」で、ふつう・しずかにも選べます）。2回やってうまくいかなくても「チャレンジ成功」として次へ進み、そのことばは「復習」タブに入って、また出てきます。1つ終えるごとに「がんばりスタンプ」がたまり、続けて使った日数も表示されます。</p>
+    <p>「もう一回お手本」でお手本を聞き直し、「次のことばへ」でとばせます。声で「もう一回」「スキップ」と言っても大丈夫です。</p>
+    <h3>ほめことばと、ワンポイント</h3>
+    <p>言えたときは、聞こえたよいところ（例：「ハ」の音がとてもきれいでした）を具体的にほめたあと、<b>「〜すると、もっと英語らしくなりますね」</b>というやさしいワンポイントをひとつだけ伝えます。ほめるだけにしたい人は、設定の「やさしいアドバイス」を「伝えない」にしてください。</p>
+    <h3>レベルとスター</h3>
+    <p>ことばを1つ終えるごとにスターが1つ、ステップをクリアするとスターが3つもらえます。スター10こでレベルアップ。画面上の紫のバーで、次のレベルまでの残りと、続けた日数がわかります。ステップの地図では、全部終えたステップが金色、途中のステップが紫になります。</p>
+
+    <h2 id="chal">チャレンジ（英語ランク）</h2>
+    <p>「チャレンジ」タブでは、相手が英語で質問し、あなたが声で答えます。<b>制限時間はありません</b>。ひとことでも、だいたい通じればOKです。答えられるとコインがもらえ、3問ごとに<b>英語ランク</b>が上がります（Lv1 たまご → ひよこ → わかば → つぼみ → はなまる → ほし → にじ → Lv8 たいよう）。ランクが上がるほど、質問が少しずつ難しくなります（はい・いいえ → 好きなもの → ふだんのこと → きのうのこと → これからのこと → 理由 → 説明 → 「もし〜なら」）。</p>
+    <p>「日本語で見る」で質問の意味、「こたえ方のヒント」で答え方の例が見られます。答えたあとは、ほめことばと「こんな言い方もできます」というお手本が出ます。</p>
+
+    <h2 id="shop">きせかえショップ</h2>
+    <p>右上の「きせかえ」から、自分のアバターを着せ替えられます。コインは、チャレンジで答える・レッスンで言える・ステージをクリアする・会話で話す、でたまります。</p>
+    <ul>
+      <li><b>サロン</b>：顔の輪郭・はだ・目の色・かみの色と、<b>88通りの髪型</b>（後ろ髪22種類 × 前髪4種類）。</li>
+      <li><b>12のブランド</b>のトップス・バッグ（リュックなど）・ぼうし・くびもと・めがね・ピアスで、<b>全372アイテム</b>。ブランドは、すべてこのアプリのオリジナル（架空）です。</li>
+      <li>アイテムをタップすると、買う前に鏡の前で試着できます。</li>
+    </ul>
+
+    <h2 id="plaza">ひろば（同じ事業所の人と会える）</h2>
+    <p>「ひろば」タブでは、きせかえたアバターで、同じ事業所の人と会えます。行きたい場所をタップすると歩きます。</p>
+    <ul>
+      <li><b>話す</b>：下の英語のことばやスタンプを押すと、アバターの吹き出しに出て、英語で読み上げられます。話せることばは決まった英語だけです。</li>
+      <li><b>おうえん</b>：「いま、いる人」から「おうえん」を押すと、「Good job!」などが届きます。届いた人はコインがもらえます。</li>
+      <li><b>マイルーム</b>：「もようがえ」で、コインで家具やかべ・ゆかを買って置けます。家具はドラッグで動かせます。ほかの人のおへやにも遊びに行けます。</li>
+      <li><b>いっしょにレッスン</b>：同じ場所にいる人をさそうと、ふたりで質問と答えを交互に声に出して言い合います。さいごまでできると、ふたりともコインがもらえます。</li>
+      <li><b>安心のために</b>：名前は英語の組み合わせ（例：Happy Fox）から選ぶだけで、本名や連絡先は出ません。気になる人は「ミュート」で見えなくできます。</li>
+      <li>ひろばに入れないときは、事業所の方に「ひろば」の設定をお願いしてください。</li>
+    </ul>
+
+    <h2 id="save">ここまで保存・続きから</h2>
+    <ul>
+      <li><b>ここまで保存</b>：レッスン中でも、止めているときでも、いつでも押せます。練習の途中で声で「セーブ」「保存」と言っても保存できます。</li>
+      <li><b>次に開いたとき</b>：同じスマホ・パソコンなら、マイクのボタンを押すだけで「前回の続き」から始まります（一時停止したときも、その場所を覚えています）。</li>
+      <li><b>つづきの合言葉</b>：保存すると、8文字の合言葉（例：K7MP-Q3XA）が出ます。メモしておくと、別のスマホやパソコンでも、ブラウザの記録が消えてしまっても、「合言葉で続きから」に入れるだけで、進み具合・スター・復習リスト・声の登録・設定がそのまま戻ります。</li>
+      <li>一度合言葉を作ると、そのあとは同じ合言葉に上書き保存されます。ステップをクリアしたときと一時停止したときも、自動で保存されます。</li>
+    </ul>
+    <div class="note">つづきの合言葉を知っている人は、だれでもあなたの進み具合を読み込めます（中身は練習の記録だけです）。人には教えないでください。</div>
+
+
+    <h2 id="voice">小さな声・にぎやかな場所</h2>
+    <ul>
+      <li><b>声の登録</b>：「声を登録する」を押すと、まず2秒間まわりの音を測り、そのあと「ハロー」と3回言ってもらいます。あなたの声の大きさと響きを覚えて、マイクの感度を自動で合わせます。<b>ふだん練習で使う声（ささやき声ならささやき声）で</b>登録してください。</li>
+      <li><b>まわりの音と分ける</b>：アプリは、その場のまわりの音（エアコン、車、話し声のざわめき）を常に測り、それより目立つ「あなたの声」だけを話した声として扱います。登録した声と響きが違う音（食器の音、音楽など）は拾いにくくします。</li>
+      <li><b>小さな声を持ち上げる</b>：マイクの感度を上げ、送る前に聞き取りやすい大きさにそろえます。</li>
+    </ul>
+    <div class="note">近くで別の人がはっきり話していると、その声を拾うことがあります。声の登録は「声の大きさと響き」で見分ける簡易的なもので、人ひとりを確実に聞き分ける仕組みではありません。にぎやかな場所では、マイクつきイヤホンを使うのがいちばん確実です。ささやき声がうまく入らないときは、設定の「ブラウザの雑音カット」を「使わない」にしてみてください。</div>
+
+    <h2 id="care">つっかえても大丈夫</h2>
+    <ul>
+      <li><b>急かさない</b>：話し始めるまで、いつまでも待ちます。話し終わりは「3秒だまったら」が基本です。途中で長く止まってしまう人は、設定の「話し終わりの合図」を 5秒・8秒、または<b>「言い終わった」ボタンを押したら</b>にしてください。ボタンにすると、どれだけ間があいても、途中で送られることはありません（パソコンは <kbd>Enter</kbd> でも送れます）。</li>
+      <li><b>採点に入れない</b>：音や言葉のくり返し、のばし、ことばが出ないあいだの沈黙、言い直しは、まちがいとして数えません。AIもそれについて何も言いません（設定の「つっかえ・沈黙への配慮」）。点数は発音・文法・語彙の3つだけになります。</li>
+      <li><b>相手もせかさない</b>：会話の相手は、あなたの文を先回りして言ったり、話し方について何か言ったりしません。相手が話しているあいだに声が入っても、相手の話をさえぎらないようになっています。</li>
+      <li><b>困ったときのことば</b>：STEP 3 で「Just a moment.（ちょっと待ってください）」を練習します。本番の英会話でも、考える時間をもらえる大事なひとことです。</li>
+    </ul>
+
+    <h2 id="partners">話し相手の選び方（会話タブ）</h2>
+    <p>レッスンに慣れたら、「会話」タブでAIとじっさいに話してみましょう。レベルが「はじめて」のときは、相手はとても簡単な英語で話し、こたえに困ったら日本語で「こう言えばいいよ」と教えてくれます。相手ごとに、話し方・声・性格が違います。</p>
+    <div class="tw"><table>
+      <thead><tr><th>相手</th><th>出身</th><th>こんな人におすすめ</th></tr></thead>
+      <tbody>
+        <tr><td><b>Emma</b></td><td>ロンドン</td><td>はじめての英会話。ゆっくり、はっきり話し、言葉に詰まっても待ってくれます。</td></tr>
+        <tr><td><b>Jake</b></td><td>サンディエゴ</td><td>くだけた日常英語やスラングに慣れたい人。元気でカジュアル。</td></tr>
+        <tr><td><b>Olivia</b></td><td>ニューヨーク</td><td>面接・会議・プレゼンなど、仕事で使うきちんとした英語の練習に。</td></tr>
+        <tr><td><b>Liam</b></td><td>シドニー</td><td>旅行や食べ物の話を気楽にしたい人。聞き上手で話を広げてくれます。</td></tr>
+        <tr><td><b>Grace</b></td><td>トロント</td><td>本・映画・考えごとを深く話したい中上級者。少し豊かな語彙を使います。</td></tr>
+      </tbody>
+    </table></div>
+    <p>「場面」で、フリートーク・自己紹介・カフェで注文・面接・道案内などのロールプレイも選べます。</p>
+
+    <h2 id="flow">会話の流れ</h2>
+    <h3>1. 話す</h3>
+    <p>マイクのボタン（または <kbd>Space</kbd>）を押すと、相手から話しかけてきます。話し終えて「話し終わりの合図」の時間だけ黙るか、「言い終わった」を押すと、相手が返事をします。相手の口は声に合わせて動き、話した内容は顔の下に字幕で出ます。いま読み上げている言葉にはオレンジのマーカーが引かれるので、どこを話しているかを目で追えます（お手本の読み上げや「▶聞く」でも同じです）。</p>
+    <h3>2. 採点は裏で静かに</h3>
+    <p>会話中は点数やアドバイスを表示しません。話した英語は裏で採点して集めておき、おさらいでまとめて見せます。ひとことごとに点数を見たい人は、設定の「会話中の採点」を「ひとことごとに表示する」に変えてください。</p>
+    <h3>3. おさらい</h3>
+    <p>終えたいときは <b>「That's all」</b>「Let's review」「おさらい」と言うか、<kbd>R</kbd> を押します。会話中に集めておいた直すポイントがすぐに出て、そのまま言い直し練習に入ります。全体の感想とよかった点は、少しあとから書き足されます。</p>
+    <h3>4. 言い直し練習</h3>
+    <p>おさらいが終わると、そのままリピート練習が始まります。お手本を聞いたら、同じ文を言ってください。1つの文につき3回まで挑戦でき、言えたら次へ進みます。<b>「Skip」</b>で次の文へ、<b>「Stop」</b>で一時停止します。</p>
+
+    <h2 id="read">音読と復習</h2>
+    <p><b>音読</b>タブでは、例文（または自分で入れた英文）を、お手本 → 音読 → 判定 の順に練習できます。</p>
+    <p><b>復習</b>タブには、おさらいで出てきた表現がたまります。言えた表現は 1日後・3日後・1週間後… と間を空けて、言えなかった表現は早めにまた出ます。タブの数字は今日復習する件数です。</p>
+    <div class="note">復習の記録は、使っている端末のブラウザの中に保存されます。別の端末やブラウザとは共有されません。</div>
+
+    <h2 id="score">点数の見方</h2>
+    <div class="tw"><table>
+      <thead><tr><th>項目</th><th>見ているところ</th></tr></thead>
+      <tbody>
+        <tr><td><b>発音</b></td><td>L/R、TH、V/B、母音を足してしまう癖（desuku など）、単語の強く読む位置</td></tr>
+        <tr><td><b>文法</b></td><td>時制、冠詞、前置詞、語順など</td></tr>
+        <tr><td><b>語彙</b></td><td>場面に合った自然な言葉選び</td></tr>
+        <tr><td><b>流暢</b></td><td>途中の長い間、言い直し、つなぎ言葉の多さ（「つっかえ・沈黙への配慮」を「しない」にしたときだけ）</td></tr>
+        <tr><td><b>語/分</b></td><td>1分あたりに話した語数。会話ではおよそ 100〜150 が目安です</td></tr>
+      </tbody>
+    </table></div>
+    <p>点数は 10 点満点です。AIによる目安なので、日ごとの上下より、同じ指摘がくり返し出ていないかを見るのがおすすめです。画面右下の小さな棒グラフは、最近の総合点の推移です。</p>
+
+    <h2 id="keys">キー操作（パソコン）</h2>
+    <ul>
+      <li><kbd>Space</kbd>：開始・一時停止（一時停止したところから再開できます）</li>
+      <li><kbd>Enter</kbd>：言い終わった（話し終わりを知らせる）</li>
+      <li><kbd>R</kbd>：おさらいを作る</li>
+      <li><kbd>N</kbd>：レッスンや練習中の文をとばす</li>
+      <li><kbd>Esc</kbd>：一時停止</li>
+    </ul>
+
+    <h2 id="settings">設定</h2>
+    <ul>
+      <li><b>利用コード</b>：購入時に届いたコード（モニターの方は合言葉）。「確認」を押すと、有効期限と今日あと何回話せるかが表示されます。端末の中にだけ保存されます。</li>
+      <li><b>話す速さ</b>（相手の顔の下のつまみ）：相手の英語が速いと感じたら左へ。声の高さはそのままで、0.6倍〜1.2倍に変えられます。お手本の読み上げにも効きます。会話中に動かすとすぐ反映され、遅めにすると次の会話から相手も区切ってゆっくり話すようになります。</li>
+      <li><b>あなたのレベル</b>：「はじめて」から「上級」まで。相手の話す速さや言葉の難しさ、採点の基準が変わります。</li>
+      <li><b>お手本の声</b>：練習のお手本を読む声。相手を選ぶと、その人の国の声に自動で切り替わります。</li>
+      <li><b>話し終わりの合図</b>：何秒黙ったら話し終わりとみなすか。「言い終わった」ボタンにすると、時間では区切りません。</li>
+      <li><b>つっかえ・沈黙への配慮</b>：「する」にすると、くり返し・のばし・沈黙・言い直しを採点に入れません。</li>
+      <li><b>ほめ方</b>：大げさに（効果音・紙ふぶき・高い声）／ふつう／しずかに。</li>
+      <li><b>やさしいアドバイス</b>：ほめたあとに「こうするともっと良くなりますね」を伝えるかどうか。</li>
+      <li><b>お手本といっしょに言う練習</b>：レッスンで、ひとりで言う前に声を重ねる練習をはさむかどうか。</li>
+      <li><b>マイクの感度・登録した声だけ拾う・ブラウザの雑音カット</b>：小さな声やにぎやかな場所のための設定です。声の登録をすると感度は自動で合わせます。</li>
+      <li><b>日本語のアドバイス</b>：練習中のアドバイスを読み上げるか、表示だけにするか。</li>
+    </ul>
+
+    <h2 id="faq">困ったとき</h2>
+    <details><summary>マイクが使えない・反応しない</summary><p>アドレスバー左のアイコンからマイクを「許可」にして、ページを再読み込みしてください。ほかのアプリ（会議アプリなど）がマイクを使っていると反応しないことがあります。</p></details>
+    <details><summary>相手が勝手に話し出す・会話が途切れる</summary><p>スピーカーの音をマイクが拾っています。イヤホンを使ってください。</p></details>
+    <details><summary>相手の英語が速くて聞き取れない</summary><p>相手の顔の下にある「話す速さ」のつまみを左に動かしてください。設定でレベルを「初級」にし、Emma を選ぶと、さらにゆっくり、やさしい言葉で話します。字幕も合わせて見てください。</p></details>
+    <details><summary>話している途中で送られてしまう</summary><p>設定の「話し終わりの合図」を 5秒・8秒にするか、「言い終わった」ボタンを押したら、にしてください。</p></details>
+    <details><summary>小さな声が聞き取ってもらえない</summary><p>「声を登録する」をやり直してください（ふだん練習で使う声で）。それでも入らないときは、設定の「マイクの感度」を上げるか、「ブラウザの雑音カット」を「使わない」に。マイクつきイヤホンがいちばん確実です。</p></details>
+    <details><summary>話していないのに、話したことになる</summary><p>まわりの音が大きく変わったときに起こります。少し静かにしていると、アプリがまわりの音を測り直します。声を登録し、「登録した声だけ拾う」を「拾う」にしてください。</p></details>
+    <details><summary>「AIが混み合っています」と出る</summary><p>AI側が混雑しています。アプリが自動でやり直しますが、続く場合は少し時間を置いてください。会話の内容は残っているので、「おさらいへ」でもう一度作れます。</p></details>
+    <details><summary>「今日の回数が上限に達しました」と出る</summary><p>1日に使える回数の上限です。日本時間の0時にリセットされます。</p></details>
+    <details><summary>「利用コードが見つかりません」と出る</summary><p>設定を開いて、届いたコードを入れ直してください。小文字やハイフンなしで入れても大丈夫です。数字の0とアルファベットのO、1とIは使っていません。</p></details>
+    <details><summary>「利用期限が切れました」と出る</summary><p>プランの期間が終わっています。延長や再購入は、ご購入いただいた窓口からお問い合わせください。</p></details>
+    <details><summary>スマホで使える？</summary><p>使えます。画面を開いたままにしてください（画面が消えると会話が止まります）。</p></details>
+
+    <h2 id="data">音声データについて</h2>
+    <p>話した音声と文字起こしは、会話の返事と採点を作るために Google の Gemini API に送られます。Gemini API の無料枠で運営している間は、送られた内容が Google のサービス改善に使われることがあります。</p>
+    <p>アプリ運営者のサーバーには、おさらいを作る間の一時的なデータ（受け取りしだい削除）を除いて、会話の内容を保存しません。復習リストや点数の記録は、お使いの端末のブラウザの中にだけ保存されます。</p>
+
+    <footer>© <span id="y"></span> 英会話ラボ　<a href="/app/">アプリを開く</a>　<a href="/">トップへ</a></footer>
+  </main>
+</div>
+<script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+</body>
+</html>

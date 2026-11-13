@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>英会話ラボ｜Hello から、あなたのペースで。</title>
+<meta name="description" content="英語ゼロの Hello から、声だけで始めるAI英会話。つっかえても、黙っても急かさない。ささやき声でも、にぎやかな場所でも。インストール不要、スマホ・パソコンで使えます。">
+<meta property="og:title" content="英会話ラボ｜話す相手が、いつでもいる。">
+<meta property="og:description" content="英語ゼロの Hello から。つっかえても、黙っても急かさない。ささやき声でも使えるAI英会話。">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#11152e">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23ff5a1f'/%3E%3Cpath d='M16 20h32a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H30l-9 7v-7h-5a6 6 0 0 1-6-6V26a6 6 0 0 1 6-6z' fill='%2311152e'/%3E%3Cpath d='M23 32v0M29 28v8M35 25v14M41 29v6' stroke='%23ff5a1f' stroke-width='3.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Zen+Maru+Gothic:wght@700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<script>
+/* ===== ここだけ書き換えれば、ボタンや料金が変わります ===== */
+window.CONFIG = {
+  purchaseUrl: '',     // 購入ページ（Stripeの支払いリンク・note・BOOTHなど）。入れると「購入する」ボタンが出ます
+  monitorUrl:  '',     // 無料モニターの申込先（XのプロフィールやGoogleフォームのURL）
+  contactUrl:  '',     // お問い合わせ先（フォームのURL、または mailto:アドレス）
+  operator:    '',     // 運営者名（例：KS計画研究所）
+  termsUrl: '', privacyUrl: '', tokushohoUrl: '',   // 利用規約・プライバシーポリシー・特定商取引法に基づく表記のURL
+  plans: [             // price を入れると料金表が表示されます（空のあいだは「モニター募集中」の表示）
+    { name:'7日体験',   price:'', unit:'',     note:'まずは試したい方に', points:['5人の話し相手すべて','1日 会話5回まで','おさらい・言い直し練習'] },
+    { name:'30日パス',  price:'', unit:'/30日', note:'いちばん人気', featured:true, points:['5人の話し相手すべて','1日 会話10回まで','おさらい・言い直し・復習リスト','音読チェック'] },
+    { name:'90日パス',  price:'', unit:'/90日', note:'じっくり続けたい方に', points:['30日パスの内容すべて','3か月分をまとめてお得に'] },
+  ],
+};
+</script>
+<style>
+/* Layout: editorial landing page. Sticky slim nav → split hero (headline left, live talking partner right) → feature trio → partner rail → 3-step flow → sample feedback card → pricing/monitor → schools → FAQ → closing band → footer. Single column under 900px. */
+:root{
+  --bg:#f4f5f8; --surface:#ffffff; --surface-2:#eef0f5; --fg:#11152e; --muted:#5a6078;
+  --line:#dfe2ea; --accent:#c2410c; --accent-ink:#ffffff; --accent-soft:#ffece3;
+  --brand:#ff5a1f; --brand-ink:#11152e; --ink:#11152e; --ink-2:#1b2142; --ink-fg:#f3f4f8; --ink-muted:#a8aec6;
+  --good:#1f8a4c; --warn:#a86400; --bad:#c2332b; --rec:#e0352b;
+  --shadow:0 1px 2px rgba(17,21,46,.06),0 10px 30px rgba(17,21,46,.08);
+  --f-display:"Bricolage Grotesque","Zen Kaku Gothic New",system-ui,sans-serif;
+  --f-jp:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --p:#d9573b;
+  --f-round:"Zen Maru Gothic","Zen Kaku Gothic New",system-ui,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0b0e1a; --surface:#141a2c; --surface-2:#1d2438; --fg:#eef0f7; --muted:#9aa1b9;
+  --line:#283049; --accent:#ff8a5c; --accent-ink:#1a0d06; --accent-soft:#3a1f14;
+  --brand:#ff6a32; --brand-ink:#11152e; --ink:#070913; --ink-2:#121833; --ink-fg:#eef0f7; --ink-muted:#9aa1b9;
+  --good:#4cc283; --warn:#e3a33d; --bad:#ff7a70; --rec:#ff5a4e;
+  --shadow:0 1px 2px rgba(0,0,0,.35),0 10px 30px rgba(0,0,0,.3); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0b0e1a; --surface:#141a2c; --surface-2:#1d2438; --fg:#eef0f7; --muted:#9aa1b9;
+  --line:#283049; --accent:#ff8a5c; --accent-ink:#1a0d06; --accent-soft:#3a1f14;
+  --brand:#ff6a32; --brand-ink:#11152e; --ink:#070913; --ink-2:#121833; --ink-fg:#eef0f7; --ink-muted:#9aa1b9;
+  --good:#4cc283; --warn:#e3a33d; --bad:#ff7a70; --rec:#ff5a4e;
+  --shadow:0 1px 2px rgba(0,0,0,.35),0 10px 30px rgba(0,0,0,.3); color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.85 var(--f-jp)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.w{max-width:1160px;margin:0 auto;padding-inline:20px}
+@media (max-width:560px){.w{padding-inline:16px}}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:12px 22px;font-weight:700;font-size:17px;text-decoration:none;border:1.5px solid transparent;cursor:pointer;white-space:nowrap}
+.btn.pri{background:var(--accent);color:var(--accent-ink)}
+.btn.pri:hover{filter:brightness(1.08)}
+.btn.sec{border-color:var(--line);background:var(--surface);color:var(--fg)}
+.btn.sec:hover{border-color:var(--accent);color:var(--accent)}
+.btn.sm{padding:7px 14px;font-size:15px}
+.eyebrow{font:600 13.5px var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
+h2.sec{font:900 clamp(26px,4vw,38px)/1.3 var(--f-jp);letter-spacing:-.01em;margin:0 0 14px;text-wrap:balance}
+.lead{color:var(--muted);max-width:60ch;margin:0}
+section.band{padding-block:clamp(56px,9vw,104px)}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s}
+.nav.scrolled{border-color:var(--line)}
+.nav .w{display:flex;align-items:center;gap:18px;padding-block:12px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto}
+.brand svg{width:34px;height:34px}
+.brand b{font:800 19px/1 var(--f-jp)}
+.brand small{display:block;font:600 11px/1 var(--f-mono);letter-spacing:.16em;color:var(--muted);margin-top:4px}
+.nav nav{display:flex;gap:20px;font-size:15.5px}
+.nav nav a{text-decoration:none;color:var(--muted)}
+.nav nav a:hover{color:var(--fg)}
+@media (max-width:820px){.nav nav{display:none}}
+
+/* hero */
+.hero{padding-block:clamp(28px,6vw,72px) clamp(40px,7vw,88px)}
+.hero .w{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(24px,5vw,64px);align-items:center}
+@media (max-width:900px){.hero .w{grid-template-columns:minmax(0,1fr)}}
+.hero h1{font:900 clamp(34px,5.2vw,64px)/1.18 var(--f-jp);letter-spacing:-.02em;margin:0 0 18px;text-wrap:balance}
+.hero h1 em{font-style:normal;color:var(--accent);white-space:nowrap}
+.hero .sub{font-size:clamp(16px,1.9vw,18px);color:var(--muted);margin:0 0 26px;max-width:34em}
+.ctas{display:flex;gap:12px;flex-wrap:wrap}
+.trust{display:flex;gap:8px 18px;flex-wrap:wrap;margin-top:22px;font-size:14.5px;color:var(--muted)}
+.trust span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--good);margin-right:8px;vertical-align:2px}
+.stagewrap{position:relative}
+.stage{position:relative;border-radius:28px;overflow:hidden;aspect-ratio:1/1;max-width:520px;margin-inline:auto;box-shadow:0 30px 80px -30px color-mix(in srgb,var(--p) 55%,transparent);
+  background:radial-gradient(110% 85% at 50% 18%, color-mix(in srgb,var(--p) 26%,var(--surface)) 0%, color-mix(in srgb,var(--p) 10%,var(--surface)) 58%, var(--surface) 100%);transition:box-shadow .6s}
+.stage canvas{width:100%;height:100%;display:block}
+.stage .tag{position:absolute;left:16px;top:16px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:14px;font-weight:700;display:flex;gap:9px;align-items:center}
+.stage .tag i{width:8px;height:8px;border-radius:50%;background:var(--p);box-shadow:0 0 0 4px color-mix(in srgb,var(--p) 25%,transparent)}
+.stage .tag small{font:600 12px var(--f-mono);color:var(--muted);letter-spacing:.05em}
+.bubble{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);width:calc(100% - 32px);max-width:440px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:12px 16px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+.bubble .en{font:600 clamp(15px,2vw,17px)/1.45 var(--f-display);min-height:1.45em}
+.bubble .en::after{content:"";display:inline-block;width:2px;height:1em;background:var(--p);margin-left:3px;vertical-align:-2px;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.score{position:absolute;right:14px;top:20%;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 12px;box-shadow:0 10px 30px rgba(0,0,0,.08);font-size:13.5px;display:grid;gap:4.5px;min-width:150px}
+.score b{font:600 12px var(--f-mono);color:var(--muted);letter-spacing:.08em}
+.score div{display:flex;justify-content:space-between;gap:12px;font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+@media (max-width:560px){.score{display:none}}
+.dots{display:flex;gap:6px;justify-content:center;margin-top:14px}
+.dots button{width:30px;height:30px;border-radius:50%;border:2px solid var(--line);background:var(--surface);cursor:pointer;padding:0;overflow:hidden}
+.dots button[aria-current="true"]{border-color:var(--fg)}
+.dots canvas{width:100%;height:100%}
+
+/* features */
+.feat{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:36px}
+@media (max-width:860px){.feat{grid-template-columns:minmax(0,1fr)}}
+.feat article{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px}
+.feat .ic{width:44px;height:44px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;margin-bottom:14px}
+.feat .ic svg{width:24px;height:24px}
+.feat h3{font:800 20px/1.4 var(--f-jp);margin:0 0 9px}
+.feat p{margin:0;color:var(--muted);font-size:17px}
+.feat .mini{margin-top:18px;display:flex;gap:6px;flex-wrap:wrap}
+.feat .mini span{font:600 13px var(--f-mono);padding:2px 11px;border-radius:999px;background:var(--surface-2);color:var(--muted)}
+
+/* partners */
+.partners{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:36px}
+@media (max-width:1000px){.partners{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:640px){.partners{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;margin-inline:-16px;padding-inline:16px}.partners article{flex:0 0 220px;scroll-snap-align:start}}
+.partners article{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:12px 12px 16px;display:flex;flex-direction:column;gap:6px}
+.partners canvas{width:100%;aspect-ratio:1/1;border-radius:14px;background:color-mix(in srgb,var(--pc) 14%,var(--surface))}
+.partners h3{margin:6px 0 0;font:800 20px/1.2 var(--f-display)}
+.partners .loc{font:600 12.5px var(--f-mono);color:var(--muted);letter-spacing:.04em}
+.partners p{margin:0;font-size:15px;color:var(--muted);line-height:1.7}
+.partners .tags{display:flex;gap:4px;flex-wrap:wrap}
+.partners .tags span{font-size:12.5px;font-weight:700;padding:0 9px;border-radius:999px;background:color-mix(in srgb,var(--pc) 13%,var(--surface));color:color-mix(in srgb,var(--pc) 75%,var(--fg))}
+
+/* flow */
+.flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:36px;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--surface)}
+@media (max-width:860px){.flow{grid-template-columns:minmax(0,1fr)}}
+.flow div{padding:26px 24px;border-right:1px solid var(--line)}
+.flow div:last-child{border-right:none}
+@media (max-width:860px){.flow div{border-right:none;border-bottom:1px solid var(--line)}.flow div:last-child{border-bottom:none}}
+.flow em{font:600 14.5px var(--f-mono);color:var(--accent);font-style:normal}
+.flow h3{font:800 19px/1.4 var(--f-jp);margin:6.5px 0 6.5px}
+.flow p{margin:0;color:var(--muted);font-size:16px}
+.flow q{font-family:var(--f-display);font-weight:600;color:var(--fg);quotes:"“" "”"}
+
+/* sample feedback */
+.sample{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,5vw,56px);align-items:center}
+@media (max-width:900px){.sample{grid-template-columns:minmax(0,1fr)}}
+.fb{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 20px 60px -30px rgba(18,21,33,.3);position:relative}
+.fb .ex{position:absolute;top:14px;right:16px;font:600 12px var(--f-mono);letter-spacing:.1em;color:var(--muted)}
+.fb .you{background:var(--accent-soft);border-radius:16px 16px 6px 16px;padding:10px 14px;font:600 18px/1.5 var(--f-display);margin:20px 0 11px auto;width:fit-content;max-width:100%}
+.fb .chips{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.fb .chips span{font:600 13.5px var(--f-mono);padding:2px 11px;border-radius:999px;border:1px solid var(--line);font-variant-numeric:tabular-nums}
+.fb .chips b{font-weight:600}
+.fb .tip{margin:11px 0 0;text-align:right;font-size:15px;color:var(--muted)}
+.fb .tip::before{content:"ひとこと　";color:var(--accent);font-weight:700}
+.fb ul{list-style:none;padding:15.5px 0 0;margin:14px 0 0;border-top:1px dashed var(--line);display:grid;gap:10px;font-size:15.5px}
+.fb del{color:var(--bad)} .fb ins{color:var(--good);text-decoration:none;font-weight:700}
+.fb .t{display:inline-block;font-size:12.5px;font-weight:700;padding:0 9px;border-radius:4.5px;background:var(--surface-2);margin-right:6px}
+.checks{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:10px}
+.checks li{display:flex;gap:10px;align-items:flex-start}
+.checks li::before{content:"";flex:none;width:20px;height:20px;margin-top:4px;border-radius:50%;background:var(--accent-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3 3 7-7' fill='none' stroke='%2311152e' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat}
+
+/* pricing */
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:36px;align-items:stretch}
+@media (max-width:900px){.plans{grid-template-columns:minmax(0,1fr)}}
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:10px}
+.plan.featured{border:2px solid var(--accent);box-shadow:0 20px 60px -30px color-mix(in srgb,var(--accent) 60%,transparent)}
+.plan .pn{font:800 20px var(--f-jp)}
+.plan .note{font-size:14px;color:var(--muted)}
+.plan.featured .note{color:var(--accent);font-weight:700}
+.plan .price{font:800 36px/1 var(--f-display);font-variant-numeric:tabular-nums;margin:6.5px 0}
+.plan .price small{font:500 15.5px var(--f-jp);color:var(--muted);margin-left:4.5px}
+.plan ul{list-style:none;padding:0;margin:4px 0 12px;display:grid;gap:6px;font-size:15.5px}
+.plan ul li::before{content:"✓";color:var(--good);font-weight:700;margin-right:9px}
+.plan .btn{margin-top:auto;justify-content:center}
+.monitor{margin-top:32px;background:var(--ink);color:var(--ink-fg);border-radius:26px;padding:clamp(24px,4vw,40px);display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:24px;align-items:center}
+@media (max-width:860px){.monitor{grid-template-columns:minmax(0,1fr)}}
+.monitor h3{font:900 clamp(22px,3vw,30px)/1.35 var(--f-jp);margin:0 0 11px}
+.monitor p{margin:0;opacity:.8}
+.monitor .ctas{justify-content:flex-end}
+@media (max-width:860px){.monitor .ctas{justify-content:flex-start}}
+.monitor .btn.sec{background:transparent;color:var(--ink-fg);border-color:color-mix(in srgb,var(--ink-fg) 35%,transparent)}
+
+/* schools */
+.school{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,56px);align-items:start}
+@media (max-width:900px){.school{grid-template-columns:minmax(0,1fr)}}
+.uses{display:grid;gap:12px}
+.uses div{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px 18px}
+.uses b{display:block;font-size:18px}
+.uses span{color:var(--muted);font-size:15.5px}
+
+/* faq */
+.faq{max-width:820px;margin:32px auto 0;display:grid;gap:10px}
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 20px}
+.faq summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font:600 20px/1 var(--f-mono);color:var(--muted)}
+.faq details[open] summary::after{content:"−"}
+.faq p{margin:10px 0 2px;color:var(--muted);font-size:17px}
+
+/* closing */
+.closing{background:var(--accent);color:var(--accent-ink);border-radius:30px;padding:clamp(32px,6vw,64px);text-align:center}
+.closing h2{font:900 clamp(26px,4.4vw,42px)/1.3 var(--f-jp);margin:0 0 13.5px;text-wrap:balance}
+.closing p{margin:0 auto 24px;opacity:.85;max-width:40em}
+.closing .ctas{justify-content:center}
+.closing .btn.pri{background:var(--accent-ink);color:var(--accent)}
+.closing .btn.sec{background:transparent;color:var(--accent-ink);border-color:color-mix(in srgb,var(--accent-ink) 45%,transparent)}
+footer{padding-block:40px 60px;color:var(--muted);font-size:14.5px}
+footer .w{display:flex;flex-wrap:wrap;gap:11px 22px;justify-content:space-between;align-items:center}
+footer nav{display:flex;gap:16px;flex-wrap:wrap}
+footer a{text-decoration:none}
+footer a:hover{color:var(--fg)}
+
+/* ===== brand layer: ink navy × signal orange ===== */
+.nav{background:var(--ink);color:var(--ink-fg);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav.scrolled{border-color:rgba(255,255,255,.1)}
+.nav nav a{color:var(--ink-muted)} .nav nav a:hover{color:var(--ink-fg)}
+.brand b{font-family:var(--f-round);font-weight:900}
+.brand small{color:var(--ink-muted)}
+.nav .btn.sec{background:transparent;color:var(--ink-fg);border-color:rgba(255,255,255,.25)}
+.nav .btn.sec:hover{border-color:var(--brand);color:var(--brand)}
+.btn.pri{background:var(--brand);color:var(--brand-ink)}
+.btn.pri:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.btn{transition:transform .15s,filter .15s,border-color .15s,color .15s}
+.hero{position:relative;background:var(--ink);color:var(--ink-fg);overflow:hidden;padding-block:clamp(36px,7vw,96px) clamp(56px,8vw,112px)}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(60% 70% at 85% 30%, color-mix(in srgb,var(--p) 38%,transparent) 0%, transparent 60%),
+             radial-gradient(50% 60% at 0% 100%, color-mix(in srgb,var(--brand) 18%,transparent) 0%, transparent 60%);transition:background .8s}
+.hero .w{position:relative}
+.hero .eyebrow{color:var(--brand)}
+.hero h1{font-family:var(--f-round);font-weight:900;color:var(--ink-fg)}
+.hero h1 em{color:var(--brand)}
+.hero .sub{color:var(--ink-muted)}
+.hero .btn.sec{background:transparent;color:var(--ink-fg);border-color:rgba(255,255,255,.28)}
+.hero .btn.sec:hover{border-color:var(--brand);color:var(--brand)}
+.hero .trust{color:var(--ink-muted)}
+.hero .trust span::before{background:var(--brand)}
+.stage{box-shadow:0 40px 90px -30px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.06)}
+.stage{color:var(--fg)}
+#features{padding-top:clamp(56px,8vw,96px)!important}
+.dots button{border-color:rgba(255,255,255,.18)}
+.dots button[aria-current="true"]{border-color:var(--brand)}
+.eyebrow{color:var(--accent)}
+h2.sec{font-family:var(--f-round);font-weight:900}
+.feat article{border:none;box-shadow:var(--shadow);border-radius:26px;padding:28px}
+.feat .ic{background:var(--ink);color:var(--brand);border-radius:14px}
+.feat h3,.flow h3,.uses b,.plan .pn{font-family:var(--f-round)}
+.partners article{border:none;box-shadow:var(--shadow);border-radius:24px}
+#partners{background:var(--bg)!important;border:none!important}
+.flow{border:none;box-shadow:var(--shadow);border-radius:26px}
+.flow em{font:800 40px/1 var(--f-display);color:var(--brand);display:block;margin-bottom:6px}
+.fb{border:none;border-radius:26px}
+.fb .you{background:var(--ink);color:var(--ink-fg);border-radius:18px 18px 6px 18px}
+#price{background:var(--surface)!important}
+.plan{border-radius:26px}
+.plan.featured{border-color:var(--brand);box-shadow:0 30px 70px -30px color-mix(in srgb,var(--brand) 55%,transparent)}
+.plan.featured .note{color:var(--accent)}
+.monitor{position:relative;overflow:hidden;background:var(--ink)}
+.monitor::before{content:"";position:absolute;right:-80px;top:-80px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle, color-mix(in srgb,var(--brand) 45%,transparent), transparent 70%);pointer-events:none}
+.monitor > *{position:relative}
+.monitor h3{font-family:var(--f-round)}
+.uses div{border:none;box-shadow:var(--shadow)}
+.faq details{border:none;box-shadow:var(--shadow)}
+.closing{background:var(--brand);color:var(--brand-ink)}
+.closing h2{font-family:var(--f-round)}
+.closing .btn.pri{background:var(--ink);color:var(--ink-fg)}
+.closing .btn.sec{color:var(--brand-ink);border-color:color-mix(in srgb,var(--brand-ink) 35%,transparent)}
+.back{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;background:var(--brand);color:var(--brand-ink);padding:8px 16px;font-size:15.5px;font-weight:700}
+.back a{background:var(--ink);color:var(--ink-fg);text-decoration:none;border-radius:999px;padding:4px 14px;font-size:14.5px}
+</style>
+</head>
+<body>
+
+<div class="back" id="back" hidden>おかえりなさい。前回の続きから練習できます <a href="/app/">アプリを開く →</a></div>
+<header class="nav" id="nav"><div class="w">
+  <a class="brand" href="/" aria-label="英会話ラボ">
+    <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="18" fill="var(--brand)"/><path d="M16 20h32a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H30l-9 7v-7h-5a6 6 0 0 1-6-6V26a6 6 0 0 1 6-6z" fill="var(--brand-ink)"/><path d="M23 32v0M29 28v8M35 25v14M41 29v6" stroke="var(--brand)" stroke-width="3.4" stroke-linecap="round"/></svg>
+    <span><b>英会話ラボ</b><small>EIKAIWA LAB</small></span>
+  </a>
+  <nav aria-label="ページ内"><a href="#features">できること</a><a href="#partners">話し相手</a><a href="#how">使い方</a><a href="#price">料金</a><a href="#faq">よくある質問</a></nav>
+  <a class="btn sec sm" href="/app/">アプリを開く</a>
+</div></header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero"><div class="w">
+    <div>
+      <p class="eyebrow">AI English Conversation</p>
+      <h1>Hello から、<br><em>あなたのペースで。</em></h1>
+      <p class="sub">英語をまったく知らなくても、声だけで始められる英会話。つっかえても、長く黙っても、急かしません。ささやくような小さな声でも、にぎやかな場所でも聞き取ります。言えたら、思いきりほめます。</p>
+      <div class="ctas" id="heroCtas">
+        <a class="btn pri" data-cta="buy" href="#price">購入する</a>
+        <a class="btn pri" data-cta="monitor" href="#price">無料モニターに申し込む</a>
+        <a class="btn sec" href="/app/">利用コードをお持ちの方</a>
+      </div>
+      <div class="trust"><span>英語ゼロからOK</span><span>つっかえても大丈夫</span><span>小さな声でもOK</span><span>インストール不要</span></div>
+    </div>
+    <div class="stagewrap">
+      <div class="stage" id="stage">
+        <canvas id="heroFace" width="720" height="720" aria-hidden="true"></canvas>
+        <span class="tag"><i></i><span id="heroName">Emma</span><small id="heroLoc">LONDON</small></span>
+        <div class="score" aria-hidden="true"><b>STEP 1 あいさつ</b><div><span>Hello.</span><span>★</span></div><div><span>Hi.</span><span>★</span></div><div><span>Good morning.</span><span>★</span></div><div><span>Thank you.</span><span>…</span></div></div>
+        <div class="bubble"><div class="en" id="heroLine" aria-live="polite"></div></div>
+      </div>
+      <div class="dots" id="dots" role="group" aria-label="話し相手を切り替える"></div>
+    </div>
+  </div></section>
+
+  <!-- FEATURES -->
+  <section class="band" id="features" style="padding-top:0"><div class="w">
+    <p class="eyebrow">What you get</p>
+    <h2 class="sec">「うまく話せない」を、前提にした英会話。</h2>
+    <p class="lead">英語を知らない。ことばがつっかえる。大きな声が出せない。まわりがうるさい。ふつうの英会話アプリでつまずくところを、最初から引き受けるように作りました。</p>
+    <div class="feat">
+      <article>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"/><path d="M19 11a7 7 0 0 1-14 0M12 18v3"/></svg></div>
+        <h3>英語ゼロの Hello から、文法まで</h3>
+        <p>あいさつから「〜です」「〜します」「きのう〜した」まで、6レベル・23ステージで一歩ずつ。文のしくみを日本語で説明し、単語ごとの意味とカタカナの読み方つき。少し知っている人は、途中のレベルから始められます。</p>
+        <div class="mini"><span>6レベル・23ステージ</span><span>文のしくみを日本語で</span><span>途中から始められる</span></div>
+      </article>
+      <article>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg></div>
+        <h3>つっかえても、黙っても、急かさない</h3>
+        <p>あなたが話し始めるまで、いつまでも待ちます。話し終わりは「3秒だまったら」から「ボタンを押したら」まで選べます。くり返し・のばし・沈黙・言い直しは、まちがいとして数えません。</p>
+        <div class="mini"><span>時間制限なし</span><span>「言い終わった」ボタン</span><span>採点に入れない</span></div>
+      </article>
+      <article>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg></div>
+        <h3>ささやき声でも、にぎやかな場所でも</h3>
+        <p>30秒の「声の登録」で、あなたの声の大きさと響きを覚えます。マイクの感度を自動で上げ、まわりの音より目立つあなたの声だけを聞き取ります。</p>
+        <div class="mini"><span>声の登録</span><span>感度の自動調整</span><span>まわりの音と分ける</span></div>
+      </article>
+    </div>
+  </div></section>
+
+  <!-- PARTNERS -->
+  <section class="band" id="partners" style="background:var(--surface);border-block:1px solid var(--line)"><div class="w">
+    <p class="eyebrow">Your partners</p>
+    <h2 class="sec">今日は、誰と話しますか。</h2>
+    <p class="lead">国も性格も話し方も違う5人。初めての英会話から、面接の練習、本の話まで、目的に合わせて選べます。</p>
+    <div class="partners" id="partnerCards"></div>
+  </div></section>
+
+  <!-- HOW -->
+  <section class="band" id="how"><div class="w">
+    <p class="eyebrow">How it works</p>
+    <h2 class="sec">1つのことばを、3ステップで。</h2>
+    <div class="flow">
+      <div><em>01</em><h3>聞く</h3><p>日本語の意味のあと、英語のお手本がゆっくり流れます。いま読んでいる文字には、オレンジのマーカーがつきます。</p></div>
+      <div><em>02</em><h3>いっしょに言う</h3><p>もう一度流れるお手本に、声を重ねます。ひとりで言うより、ずっと言いやすくなります。</p></div>
+      <div><em>03</em><h3>ひとりで言う</h3><p>準備ができたら、どうぞ。言えたら効果音と紙ふぶきで、思いきりほめます。うまくいかなくても「チャレンジ成功」で次へ。</p></div>
+    </div>
+  </div></section>
+
+  <!-- SAMPLE -->
+  <section class="band" style="padding-top:0"><div class="w sample">
+    <div>
+      <p class="eyebrow">Rewards</p>
+      <h2 class="sec">言えたら、大げさなくらい、ほめる。</h2>
+      <p class="lead">続けるいちばんの力は「できた」の手ごたえです。言えた瞬間に、高い声の「Amazing!!」と日本語の「すごい！」、効果音と紙ふぶき。1つ終えるごとに、がんばりスタンプがたまります。</p>
+      <ul class="checks">
+        <li>「ダメ」「違う」とは言いません。ヒントはひとつだけ、やさしく</li>
+        <li>つづけた日数と、がんばりスタンプの数を表示</li>
+        <li>静かに使いたい人は「ふつう」「しずかに」も選べます</li>
+      </ul>
+    </div>
+    <div class="fb" aria-label="フィードバックの表示例">
+      <span class="ex">表示例</span>
+      <div class="you">Thank you.</div>
+      <div class="chips"><span>STEP 1・4 / 5</span><span><b style="color:var(--good)">できた！</b></span><span>★ スタンプ 12こ</span><span>3日つづけています</span></div>
+      <p class="tip">Wow! Amazing!!　すごい！ ばっちり伝わりました！</p>
+      <ul>
+        <li><span class="t">ヒント</span><ins>Thank you</ins>　<span style="color:var(--muted)">「サ」は、舌の先を前歯に軽くあてて。</span></li>
+        <li><span class="t">次へ</span><ins>Bye.</ins>　<span style="color:var(--muted)">バーイ（さようなら）</span></li>
+      </ul>
+    </div>
+  </div></section>
+
+  <!-- PRICE -->
+  <section class="band" id="price" style="background:var(--surface);border-block:1px solid var(--line)"><div class="w">
+    <p class="eyebrow">Pricing</p>
+    <h2 class="sec">料金</h2>
+    <p class="lead" id="priceLead">インストールも月額の自動更新もありません。必要な期間だけ利用コードを購入して使えます。</p>
+    <div class="plans" id="plans"></div>
+    <div class="monitor" id="monitor">
+      <div>
+        <h3>ただいま、無料モニターを募集しています。</h3>
+        <p>正式な販売の前に、実際に使って感想を聞かせてくださる方を募集中です。モニター期間中は無料で、すべての機能を使えます。</p>
+      </div>
+      <div class="ctas">
+        <a class="btn pri" data-cta="monitor2" href="#">モニターに申し込む</a>
+        <a class="btn sec" href="/app/">コードをお持ちの方</a>
+      </div>
+    </div>
+  </div></section>
+
+  <!-- SCHOOLS -->
+  <section class="band" id="school"><div class="w school">
+    <div>
+      <p class="eyebrow">For schools &amp; teams</p>
+      <h2 class="sec">英会話教室・塾・企業研修にも。</h2>
+      <p class="lead">先生がいない時間にも、生徒が自分で話す練習を続けられます。人数分の利用コードをまとめて発行し、期間と1日の利用回数を団体ごとに設定できます。</p>
+      <div class="ctas" style="margin-top:22px"><a class="btn pri" data-cta="contact" href="#">導入について問い合わせる</a></div>
+    </div>
+    <div class="uses">
+      <div><b>授業の予習・宿題に</b><span>次の授業で使う表現を、事前に声に出して練習。</span></div>
+      <div><b>面接・プレゼンの準備に</b><span>Olivia が面接官役に。きちんとした受け答えを何度でも。</span></div>
+      <div><b>話す量を増やしたい生徒に</b><span>おさらいと復習リストで、自分の苦手が自然とたまっていきます。</span></div>
+    </div>
+  </div></section>
+
+  <!-- FAQ -->
+  <section class="band" id="faq" style="padding-top:0"><div class="w">
+    <p class="eyebrow" style="text-align:center">FAQ</p>
+    <h2 class="sec" style="text-align:center">よくある質問</h2>
+    <div class="faq">
+      <details><summary>何が必要ですか？</summary><p>スマホかパソコンのブラウザ（Chrome・Safari・Edge）と、マイクだけです。アプリのインストールはいりません。イヤホンを使うと、会話がより安定します。</p></details>
+      <details><summary>英語をまったく知らなくても使えますか？</summary><p>はい。「レッスン」は Hello から始まり、文のしくみ（文法）も日本語で一歩ずつ説明します。カタカナの読み方と、単語ごとの意味もつきます。英語を少し知っている人は、かんたんチェックで途中のレベルから始められます。慣れたら「会話」タブで、AIとかんたんな会話ができます。こたえに困ったら、AIが日本語で「こう言えばいいよ」と教えてくれます。</p></details>
+      <details><summary>吃音（どもり）があっても使えますか？</summary><p>はい、そのことを前提に作っています。話し始めるまで時間の制限はなく、話し終わりは「言い終わった」ボタンで知らせることもできます。音のくり返しやのばし、沈黙、言い直しはまちがいとして数えず、AIもそれについて何も言いません。なお、このアプリは英会話の練習用で、吃音の治療や訓練を目的としたものではありません。</p></details>
+      <details><summary>小さな声しか出せません。まわりもうるさいのですが…</summary><p>30秒の「声の登録」で、あなたの声の大きさに合わせてマイクの感度を上げ、まわりの音より目立つあなたの声だけを聞き取ります。すぐ近くで別の人がはっきり話していると拾ってしまうことがあるので、にぎやかな場所ではマイクつきイヤホンがおすすめです。</p></details>
+      <details><summary>1日にどのくらい使えますか？</summary><p>プランごとに1日の会話の回数が決まっています（例：30日パスは1日10回まで）。回数は日本時間の0時にリセットされます。</p></details>
+      <details><summary>有効期間はいつから数えますか？</summary><p>利用コードを<b>最初に使った日</b>から数えます。購入してすぐに使わなくても、期間は減りません。</p></details>
+      <details><summary>話した音声はどう扱われますか？</summary><p>会話の返事と採点を作るため、Google の Gemini API に送られます。復習リストや点数の記録はお使いの端末の中に保存されます。くわしくは<a href="/guide.html#data">使い方ガイド</a>をご覧ください。</p></details>
+      <details><summary>スマホとパソコンの両方で使えますか？</summary><p>同じ利用コードでどちらでも使えます。ただし、復習リストは端末ごとに記録されます。</p></details>
+    </div>
+  </div></section>
+
+  <!-- CLOSING -->
+  <section style="padding-bottom:20px"><div class="w">
+    <div class="closing">
+      <h2>今日の10分を、話す10分に。</h2>
+      <p>マイクのボタンを押せば、Hello のひとことから始まります。ゆっくりで大丈夫です。</p>
+      <div class="ctas">
+        <a class="btn pri" data-cta="buy" href="#price">購入する</a>
+        <a class="btn pri" data-cta="monitor" href="#price">無料モニターに申し込む</a>
+        <a class="btn sec" href="/app/">アプリを開く</a>
+      </div>
+    </div>
+  </div></section>
+</main>
+
+<footer><div class="w">
+  <span>© <span id="y"></span> 英会話ラボ<span id="op"></span></span>
+  <nav id="footNav"><a href="/guide.html">使い方ガイド</a><a href="/app/">アプリを開く</a></nav>
+</div></footer>
+
+<script src="/assets/faces.js"></script>
+<script>
+(() => {
+const $ = id => document.getElementById(id);
+const C = window.CONFIG || {};
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ext = u => /^https?:/.test(u || '');
+$('y').textContent = new Date().getFullYear();
+try{ if(localStorage.getItem('eklab.passcode')) $('back').hidden = false; }catch{}
+if(C.operator) $('op').textContent = '　運営：' + C.operator;
+
+/* ---- ボタンの出し分け（CONFIG の入力に応じて） ---- */
+const selling = (C.plans || []).some(p => p.price);
+const setLink = (a, url) => { a.href = url; if(ext(url)){ a.target = '_blank'; a.rel = 'noopener'; } };
+document.querySelectorAll('[data-cta="buy"]').forEach(a => { if(C.purchaseUrl && selling) setLink(a, C.purchaseUrl); else if(selling) a.href = '#price'; else a.hidden = true; });
+document.querySelectorAll('[data-cta="monitor"]').forEach(a => { if(selling) a.hidden = true; else if(C.monitorUrl) setLink(a, C.monitorUrl); else a.href = '#price'; });
+document.querySelectorAll('[data-cta="monitor2"]').forEach(a => { if(C.monitorUrl) setLink(a, C.monitorUrl); else if(C.contactUrl) setLink(a, C.contactUrl); else a.hidden = true; });
+document.querySelectorAll('[data-cta="contact"]').forEach(a => { if(C.contactUrl) setLink(a, C.contactUrl); else a.closest('.ctas').hidden = true; });
+[['termsUrl','利用規約'],['privacyUrl','プライバシーポリシー'],['tokushohoUrl','特定商取引法に基づく表記'],['contactUrl','お問い合わせ']].forEach(([k,l]) => {
+  if(C[k]){ const a = document.createElement('a'); a.textContent = l; setLink(a, C[k]); $('footNav').append(a); }
+});
+
+/* ---- 料金表 ---- */
+if(selling){
+  $('monitor').hidden = true;
+  $('plans').innerHTML = C.plans.filter(p => p.price).map(p => `
+    <div class="plan${p.featured ? ' featured' : ''}">
+      <span class="note">${esc(p.note || '')}</span><span class="pn">${esc(p.name)}</span>
+      <div class="price">${esc(p.price)}<small>${esc(p.unit || '')}</small></div>
+      <ul>${(p.points||[]).map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+      ${C.purchaseUrl ? `<a class="btn ${p.featured ? 'pri' : 'sec'}" href="${esc(C.purchaseUrl)}" ${ext(C.purchaseUrl) ? 'target="_blank" rel="noopener"' : ''}>購入する</a>` : ''}
+    </div>`).join('');
+} else {
+  $('priceLead').textContent = '正式な料金は近日公開します。インストールも月額の自動更新もなく、必要な期間だけ利用コードを購入して使える形を予定しています。';
+}
+
+/* ---- 話し相手 ---- */
+const { PARTNERS, drawFace } = window.ELFaces;
+$('partnerCards').innerHTML = PARTNERS.map(p => `<article style="--pc:${p.color}">
+  <canvas width="320" height="320" data-id="${p.id}" aria-hidden="true"></canvas>
+  <h3>${esc(p.name)}</h3><span class="loc">${esc(p.loc)}</span>
+  <span class="tags">${p.tags.map(t => `<span>${esc(t)}</span>`).join('')}</span>
+  <p>${esc(p.desc)}</p></article>`).join('');
+document.querySelectorAll('#partnerCards canvas').forEach(c => drawFace(c.getContext('2d'), c.width, PARTNERS.find(p => p.id === c.dataset.id), {open:0, wide:.6}));
+
+/* ---- ヒーロー：話し相手が交代で話しかける ---- */
+const LINES = {
+  emma:'Hello! How was your day today?',
+  jake:'Hey! Did you do anything fun this weekend?',
+  olivia:'Thanks for coming in. Could you tell me a little about yourself?',
+  liam:"G'day! Have you ever been to Australia?",
+  grace:"What's a book that changed the way you think?",
+};
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let idx = 0, typed = 0, phaseT = 0, talking = false, open = 0, t0 = performance.now(), blinkAt = t0 + 2000, blinkStart = 0, lastSwitch = t0;
+const hc = $('heroFace'), hg = hc.getContext('2d');
+$('dots').innerHTML = PARTNERS.map((p,i) => `<button type="button" aria-label="${esc(p.name)}" data-i="${i}"><canvas width="60" height="60"></canvas></button>`).join('');
+document.querySelectorAll('#dots button').forEach(b => {
+  const p = PARTNERS[+b.dataset.i]; const c = b.querySelector('canvas'); drawFace(c.getContext('2d'), 60, p, {open:0});
+  b.style.background = `color-mix(in srgb, ${p.color} 18%, var(--surface))`;
+  b.onclick = () => show(+b.dataset.i);
+});
+function show(i){
+  idx = i; typed = 0; talking = true; lastSwitch = performance.now();
+  const p = PARTNERS[i];
+  document.documentElement.style.setProperty('--p', p.color);
+  $('heroName').textContent = p.name; $('heroLoc').textContent = p.loc.split(',')[0].toUpperCase();
+  $('heroLine').textContent = '';
+  document.querySelectorAll('#dots button').forEach(b => b.setAttribute('aria-current', +b.dataset.i === i));
+}
+show(0);
+let lastType = 0;
+function frame(now){
+  const p = PARTNERS[idx], line = LINES[p.id], t = (now - t0)/1000;
+  if(reduce){ $('heroLine').textContent = line; talking = false; }
+  else if(talking && now - lastType > 55){ typed++; lastType = now; $('heroLine').textContent = line.slice(0, typed); if(typed >= line.length) talking = false; }
+  if(!reduce && !talking && now - lastSwitch > 6500) show((idx + 1) % PARTNERS.length);
+  const target = talking ? .12 + .55*Math.abs(Math.sin(t*12.5)*Math.sin(t*5.3+1)) : 0;
+  open += (target - open) * (target > open ? .5 : .3);
+  if(now > blinkAt){ blinkStart = now; blinkAt = now + 2200 + Math.random()*3000; }
+  const bt = (now - blinkStart)/140, blink = bt < 1 ? Math.abs(1 - bt*2) : 1;
+  drawFace(hg, hc.width, p, {open, wide:.5 + .3*Math.sin(t*3.1), blink, brow: talking ? .3 + open*.4 : 0, bob: Math.sin(t*1.6)*2 + open*2, tilt: Math.sin(t*.7)*.012, look: Math.sin(t*.45)*.6});
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+/* ---- ナビの影 ---- */
+const nav = $('nav'); addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 8), {passive:true});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,443 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>英会話ラボ 運営マニュアル</title><style>body{font-family:"Hiragino Sans","Yu Gothic UI","Meiryo",sans-serif;max-width:880px;margin:0 auto;padding:24px 16px;line-height:1.8;color:#1b2540;font-size:17px}h1{color:#14213d;border-bottom:4px solid #f08a24;padding-bottom:8px}h2{color:#14213d;border-left:6px solid #f08a24;padding-left:10px;margin-top:2em}table{border-collapse:collapse;width:100%;margin:1em 0}td,th{border:1px solid #d5dbe8;padding:6px 10px;vertical-align:top}th{background:#eef2f9}code{background:#f3f5fa;padding:1px 5px;border-radius:4px}pre{background:#14213d;color:#fff;padding:12px 14px;border-radius:8px;overflow:auto}pre code{background:none;color:inherit}blockquote{background:#fff6ec;border-left:4px solid #f08a24;margin:1em 0;padding:8px 14px}</style><body><h1>英会話ラボ　公開・運用マニュアル（運営者向け）</h1>
+<p>AIの話し相手と声だけで英会話を練習できる Web アプリです。
+このマニュアルは、アプリを公開・更新・管理する運営者向けです。利用者向けの説明は、アプリの中の「使い方」（<code>public/guide.html</code>）にあります。</p>
+<hr />
+<h2>1. 商品の概要</h2>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>商品名</td>
+<td>英会話ラボ（Eikaiwa Lab）</td>
+</tr>
+<tr>
+<td>形態</td>
+<td>Web アプリ（URL を開くだけ。インストール不要。パソコン・スマホ対応）</td>
+</tr>
+<tr>
+<td>主な機能</td>
+<td>英語ゼロから始める8ステップのレッスン／つっかえ・長い沈黙に配慮した聞き取り／小さな声・ささやき声と雑音への対応（声の登録）／大げさにほめるごほうび／AIとのリアルタイム音声会話（話し相手5人）／会話後のおさらい・言い直し練習・音読・間隔をあけた復習</td>
+</tr>
+<tr>
+<td>利用の制限</td>
+<td>購入者ごとの<strong>利用コード</strong>（期限・1日の回数つき）か、モニター用の<strong>合言葉</strong>で使える。アプリ全体の1日の上限もあり</td>
+</tr>
+<tr>
+<td>使っているサービス</td>
+<td>Netlify（公開・サーバー処理・回数の記録）、Google Gemini API（会話・採点）</td>
+</tr>
+</tbody>
+</table>
+<h3>サイトの構成</h3>
+<table>
+<thead>
+<tr>
+<th>URL</th>
+<th>中身</th>
+<th>見る人</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/</code></td>
+<td>紹介ページ（LP）。商品の説明・料金・申し込み</td>
+<td>お客さま</td>
+</tr>
+<tr>
+<td><code>/app/</code></td>
+<td>アプリ本体</td>
+<td>利用者</td>
+</tr>
+<tr>
+<td><code>/guide.html</code></td>
+<td>使い方ガイド</td>
+<td>利用者</td>
+</tr>
+<tr>
+<td><code>/admin.html</code></td>
+<td>管理画面（利用コードの発行・停止・延長）</td>
+<td><strong>あなただけ</strong></td>
+</tr>
+</tbody>
+</table>
+<h3>話し相手（5人）</h3>
+<table>
+<thead>
+<tr>
+<th>名前</th>
+<th>出身</th>
+<th>声</th>
+<th>向いている人</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Emma</td>
+<td>London, UK</td>
+<td>Aoede</td>
+<td>初心者。ゆっくり、はっきり話す英語講師</td>
+</tr>
+<tr>
+<td>Jake</td>
+<td>San Diego, USA</td>
+<td>Puck</td>
+<td>くだけた日常英語・スラング</td>
+</tr>
+<tr>
+<td>Olivia</td>
+<td>New York, USA</td>
+<td>Kore</td>
+<td>ビジネス・面接・会議</td>
+</tr>
+<tr>
+<td>Liam</td>
+<td>Sydney, Australia</td>
+<td>Fenrir</td>
+<td>旅行・雑談。聞き上手</td>
+</tr>
+<tr>
+<td>Grace</td>
+<td>Toronto, Canada</td>
+<td>Leda</td>
+<td>本・映画・考えごと。中上級</td>
+</tr>
+</tbody>
+</table>
+<p>相手の顔の下に「話す速さ」のつまみ（0.6〜1.2倍、声の高さはそのまま）があり、利用者が自分で聞き取りやすい速さにできます。</p>
+<p>顔はアプリの中で描いているオリジナルのイラストで、AIの声の大きさと響きに合わせて口が動きます（まばたき・うなずき・眉の動きもあります）。外部の動画サービスは使っていないので、追加の費用はかかりません。
+相手の設定（名前・性格・声・見た目）は <code>public/app/index.html</code> と <code>public/assets/faces.js</code> の <code>PARTNERS</code> で変えられます（両方を同じ内容にしてください）。</p>
+<hr />
+<h2>2. フォルダの中身</h2>
+<table>
+<thead>
+<tr>
+<th>ファイル</th>
+<th>役割</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>public/index.html</code></td>
+<td>紹介ページ（LP）。上のほうの <code>CONFIG</code> で購入リンクや料金を設定</td>
+</tr>
+<tr>
+<td><code>public/app/index.html</code></td>
+<td>アプリ本体</td>
+</tr>
+<tr>
+<td><code>public/admin.html</code></td>
+<td>管理画面</td>
+</tr>
+<tr>
+<td><code>public/assets/faces.js</code></td>
+<td>紹介ページで使う話し相手の顔</td>
+</tr>
+<tr>
+<td><code>public/guide.html</code></td>
+<td>利用者向けの使い方ガイド（アプリの「使い方」から開く）</td>
+</tr>
+<tr>
+<td><code>netlify/functions/token.mjs</code></td>
+<td>リアルタイム会話用の使い捨ての鍵（1回だけ・30分で失効）を発行</td>
+</tr>
+<tr>
+<td><code>netlify/functions/gemini.mjs</code></td>
+<td>採点・言い直し判定を中継（約8秒以内に必ず返す）</td>
+</tr>
+<tr>
+<td><code>netlify/functions/job.mjs</code></td>
+<td>おさらい作りを裏で進める（最長15分）</td>
+</tr>
+<tr>
+<td><code>netlify/functions/result.mjs</code></td>
+<td>おさらいの出来上がりを受け取る</td>
+</tr>
+<tr>
+<td><code>netlify/functions/me.mjs</code></td>
+<td>利用コードの状態（期限・今日の残り）を返す</td>
+</tr>
+<tr>
+<td><code>netlify/functions/admin.mjs</code></td>
+<td>管理画面の処理（発行・一覧・停止・再開・延長・削除）</td>
+</tr>
+<tr>
+<td><code>netlify/functions/progress.mjs</code></td>
+<td>レッスンの進み具合を「つづきの合言葉」（8文字）で保存・復元する</td>
+</tr>
+<tr>
+<td><code>netlify/lib/common.mjs</code></td>
+<td>利用コード・合言葉の確認と1日の回数制限（日本時間0時にリセット）</td>
+</tr>
+<tr>
+<td><code>netlify/lib/call-gemini.mjs</code></td>
+<td>混雑時のやり直しと、予備のモデルへの切り替え</td>
+</tr>
+<tr>
+<td><code>netlify.toml</code> / <code>package.json</code></td>
+<td>Netlify の設定と、使う部品の一覧</td>
+</tr>
+</tbody>
+</table>
+<p>APIキーはこのフォルダには入っていません（Netlify の環境変数にだけ置きます）。</p>
+<hr />
+<h2>3. 初めて公開する</h2>
+<p>Windows の場合です。Node.js（LTS版）が入っている必要があります。</p>
+<ol>
+<li>このフォルダを開き、エクスプローラーのアドレスバーに <code>cmd</code> と入力して Enter（黒い画面が開く）。</li>
+<li>1行ずつ入力して Enter。
+   <code>npm install -g netlify-cli
+   npm install
+   netlify login
+   netlify sites:create --name 好きな名前
+   netlify env:set GEMINI_API_KEY あなたのAPIキー
+   netlify env:set PASSCODE 合言葉
+   netlify env:set ADMIN_PASSWORD 管理パスワード
+   netlify deploy --prod</code></li>
+<li>最後に表示される <code>https://好きな名前.netlify.app</code> が公開URLです。</li>
+</ol>
+<p>注意
+- 選択式の質問（矢印キーで選ぶもの）は黒い画面でずれることがあるので、上のように名前を指定する方法で進めてください。
+- 黒い画面の中をクリックすると「選択」モードになり、処理が止まります。Esc で解除できます。
+- APIキーを入力した画面は、スクリーンショットで人に送らないでください。<code>cls</code> で表示を消せます。</p>
+<blockquote>
+<p>この章は「<strong>新しくサイトを作る</strong>」ときの手順です。すでにあるサイトを更新するときは 4 章だけを使ってください。
+1行入力するごとに Enter を押してください（まとめて貼り付けると動きません）。</p>
+</blockquote>
+<h2>4. 更新する（ファイルを差し替えたあと）</h2>
+<p>フォルダで黒い画面を開き、次の1行だけです。</p>
+<pre><code>netlify deploy --prod
+</code></pre>
+<p>利用者には「Ctrl + F5 で再読み込み」してもらうと、すぐ新しい版になります。</p>
+<h2>5. 設定できる値（環境変数）</h2>
+<p><code>netlify env:set 名前 値</code> で設定し、<code>netlify deploy --prod</code> で反映します。</p>
+<table>
+<thead>
+<tr>
+<th>名前</th>
+<th>必須</th>
+<th>内容</th>
+<th>既定値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GEMINI_API_KEY</code></td>
+<td>✓</td>
+<td>Gemini の APIキー</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PASSCODE</code></td>
+<td></td>
+<td>モニター用の合言葉（入れなければ合言葉は使えない）</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>ADMIN_PASSWORD</code></td>
+<td>✓</td>
+<td>管理画面のパスワード（8文字以上・人に教えない）</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>LIVE_MODEL</code></td>
+<td></td>
+<td>リアルタイム会話のモデル</td>
+<td><code>gemini-3.8-live</code></td>
+</tr>
+<tr>
+<td><code>MODEL</code></td>
+<td></td>
+<td>採点・おさらいのモデル</td>
+<td><code>gemini-3.8-flash</code></td>
+</tr>
+<tr>
+<td><code>FALLBACK_MODELS</code></td>
+<td></td>
+<td>混雑時の予備モデル（カンマ区切り）</td>
+<td><code>gemini-3.6-flash,gemini-3.5-flash-lite</code></td>
+</tr>
+<tr>
+<td><code>DAILY_SESSIONS</code></td>
+<td></td>
+<td>合言葉で使う人の、1台あたり1日の会話の回数（コードは発行時に個別に決める）</td>
+<td><code>20</code></td>
+</tr>
+<tr>
+<td><code>DAILY_CALLS</code></td>
+<td></td>
+<td>合言葉で使う人の、1台あたり1日の採点などの回数</td>
+<td><code>300</code></td>
+</tr>
+<tr>
+<td><code>MAX_CODE_FAILS</code></td>
+<td></td>
+<td>1回線あたり1日に間違えられる回数（総当たり対策）</td>
+<td><code>30</code></td>
+</tr>
+<tr>
+<td><code>IP_MULTIPLIER</code></td>
+<td></td>
+<td>同じ回線からの上限 ＝ 1台の上限 × この数</td>
+<td><code>5</code></td>
+</tr>
+<tr>
+<td><code>GLOBAL_DAILY_CALLS</code></td>
+<td></td>
+<td>アプリ全体の1日の上限（費用の安全弁）</td>
+<td><code>5000</code></td>
+</tr>
+</tbody>
+</table>
+<h2>6. 利用コードで販売する</h2>
+<h3>コードを発行する</h3>
+<ol>
+<li><code>https://あなたのサイト/admin.html</code> を開き、管理パスワードでログインします。</li>
+<li>プランを選びます（7日体験／30日パス／90日パス／団体・教室用／自分で決める）。</li>
+<li>購入者の名前やメモ（例：「山田さん note 10/14購入」）を入れて「発行する」。</li>
+<li>
+<p>下に<strong>購入者への案内文</strong>（アプリのURL・利用コード・プラン）が出るので、「案内文をコピー」してメールやDMで送ります。</p>
+</li>
+<li>
+<p>有効日数は、購入者が<strong>最初に使った日</strong>から数えます。</p>
+</li>
+<li>教室や会社には「発行する数」を人数分にして、名前に団体名を入れます。生徒1人に1つずつ配ってください。</li>
+</ol>
+<h3>発行したコードを管理する</h3>
+<ul>
+<li>一覧で、状態（未使用・利用中・期限切れ・停止中）、有効期限、今日の利用回数がわかります。</li>
+<li><strong>+30日</strong>：期限を30日延ばします（延長の購入があったとき）。</li>
+<li><strong>停止／再開</strong>：返金や不正利用のときに止められます。止めたコードはすぐ使えなくなります。</li>
+<li><strong>削除</strong>：2回押すと消えます。元に戻せません。</li>
+<li><strong>CSVで保存</strong>：一覧を Excel で開ける形で保存できます。</li>
+</ul>
+<h3>販売の流れ（例）</h3>
+<ol>
+<li>Stripe の支払いリンク・note・BOOTH などで「30日パス」を販売します。</li>
+<li>購入の通知が来たら、管理画面でコードを1つ発行し、案内文を購入者に送ります。</li>
+<li>期限が近い人に延長を案内し、購入があれば「+30日」。</li>
+</ol>
+<h3>紹介ページを書き換える</h3>
+<p><code>public/index.html</code> の上のほうにある <code>CONFIG</code> を書き換えて、<code>netlify deploy --prod</code> で反映します。</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>入れるもの</th>
+<th>入れるとどうなるか</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>purchaseUrl</code></td>
+<td>決済ページのURL</td>
+<td>「購入する」ボタンがそのページにつながる</td>
+</tr>
+<tr>
+<td><code>monitorUrl</code></td>
+<td>モニター申込先（Xのプロフィール、Googleフォームなど）</td>
+<td>「無料モニターに申し込む」ボタンがつながる</td>
+</tr>
+<tr>
+<td><code>contactUrl</code></td>
+<td>問い合わせフォームのURL、または <code>mailto:アドレス</code></td>
+<td>団体向けの問い合わせボタンとフッターのリンクが出る</td>
+</tr>
+<tr>
+<td><code>operator</code></td>
+<td>運営者名</td>
+<td>フッターに「運営：◯◯」と出る</td>
+</tr>
+<tr>
+<td><code>termsUrl</code> / <code>privacyUrl</code> / <code>tokushohoUrl</code></td>
+<td>規約類のURL</td>
+<td>フッターにリンクが出る</td>
+</tr>
+<tr>
+<td><code>plans</code> の <code>price</code></td>
+<td>例：<code>'¥1,980'</code></td>
+<td>料金表が表示され、「モニター募集中」の表示が消える</td>
+</tr>
+</tbody>
+</table>
+<p>URLを入れていないボタンは自動で隠れます。</p>
+<h2>7. 日々の管理</h2>
+<ul>
+<li><strong>管理パスワードを変える</strong>：<code>netlify env:set ADMIN_PASSWORD 新しいパスワード</code> → <code>netlify deploy --prod</code>。</li>
+<li><strong>合言葉を変える</strong>：<code>netlify env:set PASSCODE 新しい合言葉</code> → <code>netlify deploy --prod</code>。古い合言葉はすぐ使えなくなります。</li>
+<li><strong>APIキーを替える</strong>（漏れたかもしれないとき）：Google AI Studio で古いキーを削除 → 新しいキーを作る → <code>netlify env:set GEMINI_API_KEY 新しいキー</code> → <code>netlify deploy --prod</code>。</li>
+<li><strong>利用回数を見る</strong>：Netlify の管理画面 → このプロジェクト → Blobs → <code>usage</code> に日付ごとの回数があります。</li>
+<li><strong>うまく動かないとき</strong>：Netlify の管理画面 → Logs → Functions で、サーバー側のエラーを確認できます。</li>
+</ul>
+<h2>8. 販売を始める前に必ず確認すること</h2>
+<p>利用コードの仕組みはできていますが、決済は外部のサービス（Stripe・note・BOOTHなど）を使い、コードは管理画面から手で送る形です。販売を始める前に、次を整えてください。</p>
+<ol>
+<li><strong>Gemini API を有料プランにする</strong>：無料枠は回数の上限が低く、送った内容が Google のサービス改善に使われる条件があります。お金をいただく商品では有料プランが前提です。あわせて Google Cloud で<strong>予算アラート</strong>を設定してください。</li>
+<li><strong>原価を計算する</strong>：有料プランでは、会話の長さに応じて料金がかかります。テスト期間に、1人が1回（10〜15分）使ったときの料金を Google Cloud の請求画面で確認し、価格を決めてください。</li>
+<li><strong>利用規約・プライバシーポリシー</strong>：音声を外部のAI（Google）に送ることを明記してください。</li>
+<li><strong>特定商取引法に基づく表記</strong>：有料で販売する場合、販売者名・連絡先・価格・返金条件などの表示が必要です。</li>
+<li><strong>販売の窓口を決める</strong>：Stripe の支払いリンク・note・BOOTH など。決まったら紹介ページの <code>CONFIG</code> に入れる（6章）。</li>
+<li>将来、購入と同時にコードが自動で届く仕組みや、会員登録・月額課金も追加できます（別途開発）。</li>
+<li><strong>商品名の確認</strong>：「英会話ラボ」と似た名前の商標がないか、販売前に確認してください。</li>
+</ol>
+<p>法律・規約の内容は、必要に応じて専門家に確認してください。</p>
+<h2>9. 対象の人に合わせた作り（ゼロから・吃音・小さな声）</h2>
+<p>アプリを開くと最初に「レッスン」タブが出ます。</p>
+<table>
+<thead>
+<tr>
+<th>対象</th>
+<th>アプリの動き</th>
+<th>設定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>英語の知識がほぼゼロ</td>
+<td>6レベル・23ステージ（はじめの一歩／じぶんのこと＝be動詞／うごきのことば＝一般動詞／たずねることば＝疑問詞／いま・きのう・あした＝時制／つかえる表現）。各ステージのはじめに文のしくみを日本語で説明し、単語ごとの意味とカタカナの読み方つき。1つのことばを「聞く → いっしょに言う → ひとりで言う」の順に練習。英語を少し知っている人は、レベル選びか「かんたんチェック」で途中から始められる</td>
+<td>レベル「はじめて」が初期値。会話タブでもAIがやさしい英語で話し、困ったら日本語で助け舟を出す</td>
+</tr>
+<tr>
+<td>発話障害（吃音など）</td>
+<td>話し始めるまで時間の制限なし。話し終わりは「3秒だまったら」が初期値で、5秒・8秒・「言い終わった」ボタンも選べる。くり返し・のばし・沈黙・言い直しは採点に入れず、AIも触れない。会話の相手は割り込まず、先回りもしない</td>
+<td>「話し終わりの合図」「つっかえ・沈黙への配慮」</td>
+</tr>
+<tr>
+<td>小さな声・ささやき声・にぎやかな場所</td>
+<td>30秒の「声の登録」で声の大きさと響きを記録し、マイクの感度を自動で合わせる。まわりの音を常に測り、それより目立つ声だけを「話した」とみなす。送る音声は聞き取りやすい大きさにそろえる</td>
+<td>「マイクの感度」「登録した声だけ拾う」「ブラウザの雑音カット」</td>
+</tr>
+<tr>
+<td>続ける力</td>
+<td>言えたら高い声の英語と日本語でほめ、効果音と紙ふぶき。がんばりスタンプと、続けた日数を表示</td>
+<td>「ほめ方」（大げさに／ふつう／しずかに）</td>
+</tr>
+</tbody>
+</table>
+<p>説明するときの注意
+- 「声の登録」は、声の大きさと響きの形で見分ける簡易的な仕組みです。<strong>特定の人の声だけを確実に聞き分ける「話者識別」ではありません</strong>。すぐ近くで別の人がはっきり話していると拾うことがあります。にぎやかな場所では、マイクつきイヤホンをすすめてください。
+- 吃音への配慮は「練習を妨げない」ためのもので、<strong>治療や訓練の効果をうたうことはできません</strong>。紹介ページでもそう書いています。
+- ささやき声には声の高さがないため、イントネーション（抑揚）は判定しません。</p>
+<h3>進み具合の保存（つづきの合言葉）</h3>
+<ul>
+<li>利用者が「ここまで保存」を押すか、声で「セーブ」と言うと、進み具合・スター・復習リスト・声の登録・設定を Netlify Blobs の <code>progress</code> に保存し、8文字の合言葉を返します。</li>
+<li>合言葉を入れると、別の端末でも続きから始められます。保存できるのは、利用コードか合言葉（モニター用）が正しい人だけです。回数の上限には数えません。</li>
+<li>総当たり対策：合言葉の読み込みは、1回線あたり1日30回まで間違えられます。保存は1回線あたり1日300回まで。</li>
+</ul>
+<h3>チャレンジ・コイン・きせかえ</h3>
+<ul>
+<li>「チャレンジ」タブ：英語の質問（ランクごとに5問×8ランク）に声で答える。制限時間なし。通じればコイン（5＋ランク×5）、3問でランクアップ（ボーナス ランク×20コイン）。</li>
+<li>コインはほかに、レッスンで言えた（3）・チャレンジした（1）・ステージクリア（10）・レベルクリア（50）・会話で1回話す（1）でたまる。</li>
+<li>「きせかえ」：髪型88通り、架空ブランド12 × アイテム31種類 ＝ 372アイテム。コイン・持ち物・アバターは「つづきの合言葉」でいっしょに保存される。</li>
+<li>コインは練習のごほうび用で、お金では買えず、お金にも換えられません（課金の仕組みはありません）。</li>
+</ul>
+<h3>見た目</h3>
+<p>ゲームのように楽しい見た目にしています（空の背景、レベルとスターのバー、ステップの地図、クエストカード、レベルアップの演出）。色や形は <code>public/app/index.html</code> の <code>game layer</code> の部分にまとめてあります。</p>
+<h3>「作品を英語で語る（β）」について</h3>
+<p>いったん画面から外しています。仕組みはファイルに残してあり、<code>public/app/index.html</code> の <code>let MODE = 'daily';</code> の行を元に戻せば復活できます（必要になったら作業を依頼してください）。</p>
+<h2>10. 日本語版について</h2>
+<p>日本語を学ぶ外国の人向けの「Japanese Lab」は、別のフォルダ（<code>japanese-lab-netlify</code>）・別のサイトとして公開しています。管理の方法は同じです。</p></body></html>
